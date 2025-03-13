@@ -1,0 +1,245 @@
+.footer {
+    background-color: #212121;
+    color: white;
+    padding: 40px 5%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+/* First Column */
+.footer-section {
+    flex: 1;
+    margin-top: 30px;
+    min-width: 200px;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.footer-title {
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: 1.1;
+}
+
+/* Second Column - Centered Logo and Social Icons */
+.footer-middle {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.logo-container {
+    width: clamp(120px, 15vw, 180px);
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.footer-logo {
+    width: 100%;
+    height: auto;
+    max-width: 180px;
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.social-icon img {
+    width: 20px;
+    height: auto;
+}
+
+/* Third Column - Contact Section */
+.contact-section {
+    margin-top: 50px;
+    flex: 1;
+    min-width: 200px;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.contact-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    min-width: 24px;
+}
+
+.contact-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.contact-item span {
+    line-height: 1.4;
+    flex: 1;
+    font-size: clamp(14px, 1.5vw, 16px);
+}
+
+/* Divider */
+.footer-divider {
+    height: 1px;
+    background-color: #555;
+    margin: 30px auto;
+    max-width: 1200px;
+}
+
+/* Copyright */
+.copyright {
+    text-align: center;
+    font-size: clamp(12px, 1.2vw, 14px);
+    color: #888;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .footer {
+        padding: 35px 4%;
+    }
+    
+    .footer-section {
+        padding: 0 10px;
+    }
+    
+    .contact-section {
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 30px 30px;
+    }
+    
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+    }
+    .footer-logo{
+        width: 200px;
+    }
+    .footer-section {
+        order: 1;
+        width: 100%;
+        min-width: auto;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        padding: 0;
+    }
+    
+    .footer-middle {
+        order: 2; /* Move the logo section to the top on mobile */
+        margin-bottom: 40px;
+        width: 100%;
+        min-width: auto;
+        padding-bottom: 30px;
+        border-bottom: 2px solid rgb(252, 250, 250);
+    }
+    .footer-divider {
+        display: none;
+       
+    }
+    
+    .contact-section {
+        order: 3;
+        margin-top: 20px;
+        justify-content: flex-start; /* Ensures content aligns to the start */
+        width: 100%;
+        min-width: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Aligns items to the left */
+        text-align: left; /* Ensures text remains left-aligned */
+        padding-bottom: 30px;
+        border-bottom: 2px solid rgb(252, 250, 250);
+    }
+
+    .contact-item {
+        justify-content: center;
+   
+    }
+    
+    .footer-divider {
+        display: none;
+      
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 30px 30px;
+    }
+    
+    .footer-title {
+        margin-bottom: 15px;
+    }
+    
+    .logo-container {
+        width: 120px;
+    }
+    
+    .contact-item {
+        /* flex-direction: column; */
+        display: flex;
+        align-items: center;
+    }
+    
+    .contact-icon {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+    
+    .social-icon {
+        width: 30px;
+        height: 30px;
+    }
+   
+    .social-icon img {
+        width: 16px;
+    }
+}

@@ -1,0 +1,320 @@
+.testimonials {
+    text-align: center;
+    padding: 50px 20px;
+    background: url("../testimonials/images/banner-6\ 1.png") no-repeat center center/cover; /* Add your image */
+    color: white; /* Adjust text color for visibility */
+    position: relative;  }
+  
+  .testimonials-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin: 0; /* Remove extra margin */
+
+    
+  }
+  
+
+  .arrows-container2{
+    display: none;
+  }
+
+  .testimonials-title {
+    color: #de0000;
+    font-weight: 500;
+    font-size: 16px;
+    margin-right: 110px;
+    margin-top: 50px;
+    margin-bottom: 0px;
+  }
+  
+  .testimonials-heading {
+margin-left: 280px;
+    font-size: 42px;
+    font-weight: bold;
+    color: black;
+    margin-top: 0;
+  }
+  
+  .arrows-container {
+    display: flex;
+    justify-content: center;
+  align-items: center;
+    gap: 10px;
+    margin-right: 200px;
+  }
+  
+  .arrow {
+    background: #de0000;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+    justify-content: center;
+  align-items: center;
+    width: 45px;
+  height: 45px;
+  }
+  
+  .arrow:hover {
+    background: darkred;
+  }
+  .testimonials {
+    /* width: 90%; */
+    /* margin: auto; */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .testimonials-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .testimonials-slider {
+    overflow: hidden;
+    /* padding: 20px 0; */
+    position: relative;
+  }
+  
+  .testimonial-container {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .testimonial-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    min-height: 220px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-bottom: 30px;
+  }
+  
+  .testimonial-text {
+    text-align: start;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+    min-height: 90px;
+  }
+  
+  .testimonial-info {
+    display: flex;
+    align-items: center; /* Ensure everything is in the same line */
+    justify-content: space-between; /* Push elements to both sides */
+  }
+  
+  .testimonial-details {
+    display: flex;
+    flex-direction: column; /* Stars, name, location stacked */
+    align-items: flex-start; /* Align text to left */
+  }
+  .testimonial-name,
+.testimonial-location,
+.stars {
+  margin: 0; /* Remove unwanted margins */
+  padding: 0; /* Remove unwanted padding */
+  line-height: 1.5; /* Reduce extra spacing */
+}
+  
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  
+  
+  .testimonial-name {
+    display: block !important;
+    color: black !important; /* Ensures name is visible */
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  
+  .testimonial-location {
+    font-size: 14px;
+    color: gray;
+  }
+  
+  .stars {
+    color: rgb(246, 159, 7);
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  
+ 
+  @media (max-width: 1024px) {
+    .testimonials {
+      padding: 30px 10px; /* Reduce padding */
+    }
+    .testimonials-header {
+      display: flex;
+      /* justify-content: space-between; */
+      /* align-items: center; */
+      margin-bottom: 20px;
+      margin: 0; /* Remove extra margin */
+  
+      
+    }
+    
+    .testimonials-title {
+      color: #de0000;
+      font-weight: 500;
+      font-size: 16px;
+      margin-left: 0px;
+      margin-top: 50px;
+      margin-bottom: 0px;
+      margin-right: 350px;
+    }
+    .arrows-container2{
+      display: none;
+    }
+    .testimonials-heading {
+      margin-left: 48px;
+      font-size: 42px;
+      font-weight: bold;
+      color: black;
+      margin-top: 0;
+    }
+    
+    .arrows-container {
+      display: flex;
+      justify-content: center;
+    align-items: center;
+      gap: 10px;
+      margin-right: 200px;
+    }
+  }
+  @media (min-width: 500px) and (max-width: 768px) {
+    .testimonials-header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .arrows-container2 {
+      display: flex;
+      justify-content: center;
+    align-items: center;
+      gap: 10px;
+      /* margin-right: 200px; */
+    }
+  
+    .testimonials-title {
+      margin-right: 0;
+      font-size: 19px;
+      margin-top: 20px;
+      text-align: start;
+      margin-left: 40px;
+    }
+  
+    .testimonials-heading {
+      font-size: 30px;
+      margin-left: 0;
+      text-align: start;
+      margin-left: 40px;
+
+    }
+  }
+  @media (max-width: 768px) {
+    .testimonials {
+      padding: 30px 10px; 
+    }
+  
+    .testimonials-header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .arrows-container2 {
+      display: flex;
+      justify-content: center;
+    align-items: center;
+      gap: 10px;
+      /* margin-right: 200px; */
+    }
+  
+    .testimonials-title {
+      margin-right: 0;
+      font-size: 14px;
+      margin-top: 20px;
+      text-align: start;
+      margin-left: 40px;
+    }
+  
+    .testimonials-heading {
+      font-size: 30px;
+      margin-left: 0;
+      text-align: start;
+      margin-left: 40px;
+
+    }
+  
+    .arrows-container {
+      display: none;
+      margin-top: 15px;
+      margin-right: 0;
+      justify-content: center;
+    }
+  
+    .testimonials-slider {
+      width: 100%;
+    }
+  
+    .testimonial-container {
+      display: flex;
+      width: 95%;
+    }
+  
+    .testimonial-card {
+      /* width: 100%;  */
+      min-width: 300PX;
+      max-width: 300PX;
+      margin: auto;
+      padding: 20px;
+    }
+  
+    .avatar {
+      width: 60px;
+      height: 60px;
+    }
+  
+    .testimonial-text {
+      font-size: 14px;
+      min-height: 70px;
+    }
+  
+    .testimonial-info {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .arrows-container {
+      display: none;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  
+    .arrow {
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+    }
+  }
+  
