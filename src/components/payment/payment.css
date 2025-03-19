@@ -1,0 +1,322 @@
+/* General Styles */
+.payment-container {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    background: #fff;
+    /* box-shadow: 3px 8px 6px 9px wheat; */
+    font-family: Arial, sans-serif;
+}
+
+.payment-box {
+    border: 1.5px solid rgb(205, 203, 203);
+    /* padding: 10px; */
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.payment-header {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    padding:0px 10px;
+    border-bottom: 1.5px solid #ddd;
+}
+.payment-header h2{
+    font-weight: 400;
+    color: #323232;
+}
+.back-btn {
+    padding-top: 7px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.payment-amount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    font-weight: 500;
+    border-bottom: 1px solid #ddd;
+}
+
+.pay-online {
+    padding-left: 15px;
+    flex: 1;
+    /* text-align: center; */
+}
+
+.selected-indicator {
+    width: 18px;
+    height: 18px;
+    padding: 2px;
+    /* border: 2px solid #aaa; */
+    background-color: #DE0000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fdfdfd;
+    transition: all 0.3s;
+}
+
+/* Payment Section */
+.pay-section  {
+    padding: 0px;
+}
+
+.pay-section h3  {
+    padding-left: 10px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #323232;
+}
+.pay-options {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1.5px solid rgb(183, 181, 181);
+}
+
+/* Payment Item */
+.pay-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:5px 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+    /* border-bottom: 2px solid grey; */
+}
+
+.pay-items {
+  
+    align-items: center;
+    justify-content:start;
+    /* padding: 0px 12px; */
+    /* border-radius: 8px; */
+    cursor: pointer;
+    transition: background 0.3s;
+    border-bottom: 1.5px solid rgb(185, 184, 184);
+}
+
+.pay-items1 {
+  
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 0px;
+    /* border-radius: 8px; */
+    cursor: pointer;
+    transition: background 0.3s;
+  ;
+}
+.pay-items h3{
+    font-size: 16px;
+    font-weight: 450;
+    margin-bottom: 0;
+}
+
+.pay-items p{
+    padding-left: 10px;
+    margin-top: 0;
+    font-size: 11px;
+    color: #565555;
+}
+
+.pay-items1 h3{
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.pay-items1 p{
+    padding-left: 10px;
+    margin-top: 0;
+    font-size: 11px;
+    color: #565555;
+}
+.pay-item:hover {
+    background: #f9f9f9;
+}
+
+/* .pay-item.selected {
+    border: 1px solid red;
+    background: #ffe5e5;
+} */
+
+/* Payment Icon Container */
+.pay-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.pay-icon {
+    width: 20px;
+    height: auto;
+}
+
+/* Payment Label */
+.pay-label {
+    flex-grow: 1;
+    font-size: 14px;
+}
+
+/* Custom Radio Button */
+.radio-btn {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #aaa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.radio-btn.checked {
+    border-color: red;
+    background: red;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.radio-btn.checked::after {
+    content: "✔";
+    /* content: "✔️"; */
+    color: white;
+    font-size: 14px;
+}
+
+/* Price Section */
+.price-section {
+    padding: 20px;
+    /* background: #f9f9f9; */
+}
+
+.delivery{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.delivery img{
+    width: 22px;
+    height: 22px;
+}
+/* .address-header img{
+   
+}
+.address-header h4{
+ padding-left: 0;
+ margin-left: 0;
+} */
+/* Align Price Details Text Left & Icon Right */
+.price-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* font-weight: 300; */
+}
+.price-header h3{
+    font-size: 16px;
+    font-weight: 400;
+    color: #323232;
+}
+/* Dropdown Icon */
+.dropdown-icon {
+    padding-top: 8px;
+    font-size: 19px;
+    color: #333;
+}
+
+.delivery-address {
+    border: 1px solid #ddd;
+    padding:0px 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.delivery h4{
+    font-size: 17px;
+    color: #323232;
+    font-weight: 400;
+}
+.delivery-address p{
+    margin-top: 0;
+    padding-top: 0;
+    /* margin-bottom: 0; */
+    font-size: 13px;
+    color: #858585;
+
+}
+
+.delivery-address span{
+    font-size: 13px;
+    font-weight: 200;
+}
+/* Align Deliver to (Left) & Change (Right) */
+.address-header {
+    margin-bottom: 0%;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  
+}
+.change-btn {
+    color: #DE0000;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* Footer */
+.payment-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:14px 20px;
+    background: #fff;
+    border-top: 1px solid #ddd;
+}
+.paymentprice-details {
+line-height: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ₹700 Styling */
+.amount {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* View Detailed Bill Styling */
+.detailed-bill {
+    color: #2F9558;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.pay-now-btn {
+    background: #DE0000;
+    border-radius: 8px;
+    color: white;
+    padding:8px 40px;
+    border: none;
+    cursor: pointer;
+}
+
+

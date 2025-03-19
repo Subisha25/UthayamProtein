@@ -246,6 +246,7 @@ margin-left: 280px;
       display: flex;
       justify-content: center;
     align-items: center;
+    margin-top: 15px;
       gap: 10px;
       /* margin-right: 200px; */
     }
@@ -255,17 +256,28 @@ margin-left: 280px;
       font-size: 14px;
       margin-top: 20px;
       text-align: start;
-      margin-left: 40px;
+      /* margin-left: 40px; */
     }
   
     .testimonials-heading {
       font-size: 30px;
       margin-left: 0;
       text-align: start;
-      margin-left: 40px;
+      /* margin-left: 40px; */
 
     }
-  
+    .testimonial-details {
+      display: flex;
+      flex-direction: column; /* Stars, name, location stacked */
+      align-items: flex-start; /* Align text to left */
+    }
+    .testimonial-name,
+    .testimonial-location,
+    .stars {
+      margin: 0; /* Remove unwanted margins */
+      padding: 0; /* Remove unwanted padding */
+      line-height: 1.5; /* Reduce extra spacing */
+    }
     .arrows-container {
       display: none;
       margin-top: 15px;

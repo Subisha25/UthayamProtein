@@ -4,7 +4,7 @@
     font-family: "Arial", sans-serif;
   }
   
-  .store-title {
+  .store-title2 {
     color: #DE0000;
     font-weight: 400;
     text-transform: uppercase;
@@ -12,7 +12,7 @@
     margin-bottom: 0; /* Remove bottom margin */
 }
 
-.section-title {
+.section-title2 {
     font-size: 35px;
     font-weight: bold;
     margin-top: 5px; /* Reduce top margin */

@@ -110,6 +110,7 @@
 import React, { useState } from "react";
 import "../testimonials/testimonials.css";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import Footer from "../footer/footer";
 
 const testimonials = [
   { name: "Sivakumar", location: "Kalmandabam", image:"https://filestore.community.support.microsoft.com/api/profileimages/02b5e7d4-a569-4182-a312-60e83ad68a91", review: "I bought meat at their shop. And I saw they provide meat with honesty and their meat totally comes from their own farm in a natural and organic way." },
@@ -137,6 +138,7 @@ const Testimonials = () => {
   };
 
   return (
+    <>
     <div className="testimonials">
       {/* Title Section */}
       <div className="testimonials-header">
@@ -193,6 +195,8 @@ const Testimonials = () => {
           </button>
         </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

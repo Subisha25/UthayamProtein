@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import "./banner.css";
+import "../banner/banner.css";
 import chickenImage from "../assets/features_img02 1.png";
 import logo from "../assets/Uthayam_Protein_Logo_PNG 1.png";
 import Chicken from '../assets/cbi_chicken.png';
@@ -9,9 +9,9 @@ import User from '../assets/Vector (1).png';
 import Arrow from '../assets/Vector (2).png';
 import Cart from '../assets/Vector.png';
 import About from "../about/about";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Banner = () => {
+const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   // const navigate = useNavigate();
@@ -51,11 +51,7 @@ const Banner = () => {
         
         <div className="header-left">
           <img src={logo} alt="Uthayam Protein" className="logo" />
-          <h1 className="main-title">
-            <span>Fresh, Safe, Quality</span><br />
-            <span>Chicken Meat</span>
-          </h1>
-          <p className="sub-text">Food that matters – to you, to farmers, and to the planet we all share.</p>
+         
         </div>
         
         <div className="header-right">
@@ -81,52 +77,17 @@ const Banner = () => {
               <img src={Cart} className="navimage" alt="" />
               Cart
             </span> */}
-
-<Link className="nav-item2" to="/cart">
+            <Link className="nav-item2" to="/cart">
               <img src={Cart} className="navimage" alt="" />
               Cart
             </Link>
           </nav>
 
-          <img src={chickenImage} alt="Chicken Meat" className="chicken-img" />
         </div>
       </header>
 
-      <section className="categories">
-        <div className="category">
-          <span className="icon">
-            <img className="iconimage" src={Chicken} alt="Chicken" />
-          </span>
-          <div className="category-text">
-            <h3>Chicken</h3>
-            <p>Broiler & Natukoli</p>
-          </div>
-        </div>
-        
-        <div className="category">
-          <span className="icon">
-            <img className="iconimage" src={Egg} alt="Egg" />
-          </span>
-          <div className="category-text">
-            <h3>Egg</h3>
-            <p>Broiler & Natukoli</p>
-          </div>
-        </div>
-
-        <div className="category">
-          <span className="icon">
-            <img className="iconimage" src={Kadai} alt="Kadai" />
-          </span>
-          <div className="category-text">
-            <h3>Kadai</h3>
-            <p>Meat & Egg</p>
-          </div>
-        </div>
-      </section>
-
-      <About />
     </div>
   );
 };
 
-export default Banner;
+export default Navbar;

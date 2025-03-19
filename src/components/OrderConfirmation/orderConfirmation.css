@@ -1,0 +1,49 @@
+/* Fullscreen Container */
+.order-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #DE0000;
+    color: white;
+    padding: 20px;
+  }
+  
+  /* Content Box */
+  .order-content {
+    text-align: center;
+    max-width: 300px;
+  }
+  .orderimage{
+    width: 80px;
+    height: auto;
+  }
+  /* Checkmark Icon */
+  .order-icon {
+    font-size: 40px;
+    /* background-color: white; */
+    color: #DE0000;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 50%;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+  
+  /* Headline */
+  .order-content h2 {
+    font-size: 28px;
+    font-weight: 500;
+    margin-top: 0px;
+    margin-bottom: 2px;
+  }
+  
+  /* Paragraph Text */
+  .order-content p {
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+  font-weight: 400;
+  }
+  
