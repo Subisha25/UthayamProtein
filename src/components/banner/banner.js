@@ -10,7 +10,7 @@ import Arrow from '../assets/Vector (2).png';
 import Cart from '../assets/Vector.png';
 import About from "../about/about";
 import { Link} from "react-router-dom";
-
+import Search from '../assets/iconamoon_search.png';
 const Banner = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -72,6 +72,10 @@ const Banner = () => {
           )}
           
           <nav className={`nav ${mobileMenu ? 'mobile-active' : ''}`}>
+          <span className="nav-item">
+              <img src={Search} alt="" className="navimage" />
+            Search
+            </span>
             <span className="nav-item">
               <img src={User} alt="" className="navimage" />
               Login 

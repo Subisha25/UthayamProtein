@@ -72,6 +72,7 @@ const ProductDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState(""); // Store phone number
   const [showOTPModal, setShowOTPModal] = useState(false); // OTP modal state
+  const [otp, setOtp] = useState("");
 
   const handleContinue = () => {
     if (phoneNumber.trim().length === 10) {
@@ -87,9 +88,17 @@ const ProductDetails = () => {
   };
 
   const handleVerifyOTP = () => {
-    setShowModal(false); // Close modal
-    setShowOTPModal(false); // Reset OTP modal state
+    if (otp.length !== 6) {
+      alert("Please enter a valid 6-digit OTP");
+      return;
+    }
+  
+    // Close modals and navigate to the delivery page
+    setShowModal(false);
+    setShowOTPModal(false);
+    navigate("/deliveryaddress");
   };
+  
   // If no product is passed, navigate back to the product list
   if (!selectedProduct) {
     navigate("/");
@@ -126,8 +135,8 @@ const ProductDetails = () => {
         <span className="old-price">{selectedProduct.originalPrice}</span>
       </div>
       {selectedProduct.tag && <div className="offer-tag">{selectedProduct.tag}</div>}
-      <p className="stock-status">{selectedProduct.available ? "In Stock" : "Out of Stock"}</p>
-      <p className="delivery-info">
+      <p className="stock-status1">{selectedProduct.available ? "In Stock" : "Out of Stock"}</p>
+      <p className="delivery-info1">
         Fast delivery - <span className="highlight">Order within 30 mins</span>
       </p>
 
@@ -214,12 +223,33 @@ const ProductDetails = () => {
         </button>
 
         <div className="modal-otp-input-container">
-          <input type="text" className="modal-otp-input" maxLength="6" />
+        <input
+  type="text"
+  className="modal-otp-input" 
+  value={otp}
+  onChange={(e) => {
+    const inputVal = e.target.value.replace(/\D/g, "").slice(0, 6); // Only numbers, max 6 digits
+    setOtp(inputVal);
+  }}
+  maxLength={6} // Ensures max 6 digits
+  pattern="[0-9]*" // Only numbers allowed
+  inputMode="numeric" // Mobile keyboard shows numbers
+ 
+/>
         </div>
+        <div>
+    {/* <input
+      type="text"
+      value={otp}
+      onChange={(e) => setOtp(e.target.value.slice(0, 6))} // Restrict to 6 digits
+      maxLength={6}
+    /> */}
 
-        <button className="modal-button" onClick={handleVerifyOTP}>
-  VERIFY AND CONTINUE
-</button>
+
+    <button className="modal-button" onClick={handleVerifyOTP}>
+      VERIFY AND CONTINUE
+    </button>
+  </div>
         <p className="modal-footer">
           By clicking, I accept the Terms and <br /> Conditions & Privacy Policy
         </p>

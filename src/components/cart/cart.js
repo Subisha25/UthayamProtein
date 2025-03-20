@@ -17,7 +17,7 @@ const Cart = () => {
     <Navbar />
     <div className="cart-container">
       <header className="cart-header">
-        <span className="back-arrow">←</span> Cart
+        <span className="back-arrow"  onClick={() => navigate(-1)}>←</span> Cart
       </header>
 
       <div className="delivery-info">2 Items – Delivery within 40 - 45 mins</div>

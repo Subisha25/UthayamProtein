@@ -28,7 +28,7 @@ const navigate = useNavigate();
     <div className="payment-container">
       {/* Header */}
       <div className="payment-header">
-        <button className="back-btn"><GoArrowLeft /></button>
+        <button className="back-btn" onClick={() => navigate(-1)}><GoArrowLeft /></button>
         <h2>Payment Option</h2>
       </div>
 

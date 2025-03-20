@@ -13,7 +13,13 @@
     box-sizing: border-box;
 }
   
- 
+.error {
+  color: red;
+  font-size: 14px;
+  
+}
+
+
   
   .cart-header {
     display: flex;
@@ -92,24 +98,38 @@
   input {
     width: 100%;
     padding: 10px;
-    margin: 5px 0;
+    margin: 18px 0;
     border: none;
     border-bottom: 1px solid #ccc;
     outline: none;
     font-size: 14px;
   }
-  .input-field{
+  /* .input-field{
     line-height: 5;
-  }
-  .contact{
+  } */
+  /* .contact{
     line-height: 4;
-  }
+  } */
   
   /* City & State - Side by Side */
   .city-state {
     display: flex;
-    gap: 10px;
+    gap: 35px; /* Adjust spacing between CITY and STATE */
   }
+  
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-top: 0px;
+    display: block;
+  }
+  
   
   .city-state input {
     flex: 1;
