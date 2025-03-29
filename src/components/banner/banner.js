@@ -9,12 +9,13 @@ import User from '../assets/Vector (1).png';
 import Arrow from '../assets/Vector (2).png';
 import Cart from '../assets/Vector.png';
 import About from "../about/about";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import Search from '../assets/iconamoon_search.png';
 const Banner = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [searchOpen, setSearchOpen] = useState(false); // New state for search box
 
   useEffect(() => {
     const handleResize = () => {
@@ -42,7 +43,7 @@ const Banner = () => {
       <div className="mobileicons">
        <img src={User} alt=" " className="mobimg1" />
        <img src={Arrow} alt=" " className="mobimg2" />
-       <img src={Cart} alt=" " className="mobimg1" />
+       <img src={Cart} alt=" " className="mobimg1"  onClick={() => navigate("/cart")}/>
 
       </div>
     </header>
@@ -59,7 +60,7 @@ const Banner = () => {
         </div>
         
         <div className="header-right">
-          {windowWidth <= 768 && (
+          {/* {windowWidth <= 768 && (
             <button 
               className="mobile-menu-toggle" 
               onClick={() => setMobileMenu(!mobileMenu)}
@@ -69,11 +70,11 @@ const Banner = () => {
               <span></span>
               <span></span>
             </button>
-          )}
+          )} */}
           
           <nav className={`nav ${mobileMenu ? 'mobile-active' : ''}`}>
-          <span className="nav-item">
-              <img src={Search} alt="" className="navimage" />
+          <span className="nav-item" onClick={() => setSearchOpen(!searchOpen)}>
+          <img src={Search} alt="" className="navimage" />
             Search
             </span>
             <span className="nav-item">
@@ -91,7 +92,13 @@ const Banner = () => {
               Cart
             </Link>
           </nav>
-
+{/* Search Box */}
+{searchOpen && (
+            <div className="search-box">
+              <input type="text" placeholder="Search..." className="search-input" />
+              <button className="close-btn" onClick={() => setSearchOpen(false)}>X</button>
+            </div>
+          )}
           <img src={chickenImage} alt="Chicken Meat" className="chicken-img" />
         </div>
       </header>

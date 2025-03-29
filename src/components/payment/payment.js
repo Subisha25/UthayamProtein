@@ -10,7 +10,8 @@ import { GoArrowLeft } from "react-icons/go";
 import Tick from '../assets/tick.png';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar/navbar";
-
+import File from '../assets/material-symbols_add-notes-outline-rounded.png';
+// import Tick from '../assets/tick.png';
 const PaymentOption = () => {
   const [selectedPayment, setSelectedPayment] = useState("paytm");
 const navigate = useNavigate();
@@ -24,7 +25,98 @@ const navigate = useNavigate();
 
   return (
     <>
+
     <Navbar />
+
+    {/* desktop section */}
+    <div className="pay2container">
+      <div className="pay2left">
+        <div className="pay2box">
+          <div className="pay2header">
+            <h3 className="pay2title">Product Details</h3>
+            <span className="pay2change">View/Change</span>
+          </div>
+
+          <div className="pay2section">
+          <div className="pay2amount">
+            <h3>₹700</h3>
+            <span>Pay Online</span>
+            <span className="pay2tick">
+              <img  src={Tick} alt="tick" /></span>
+          </div>
+          <div className="pay2options">
+            <p>Pay by any UPI app</p>
+            <div className="pay2paysect" >
+            <div className="pay2upi">
+              <img className="paytmimg" src={Paytm} alt="Paytm" />
+              <img className="payimg" src={Gpay} alt="GPay" />
+              <img className="payimg" src={Phonepay} alt="PhonePe" />
+            </div>
+            <button className="pay2qr">View QR Code</button>
+            </div>
+            <p className="pay2addupi">+ADD UPI ID</p>
+          </div>
+          <div className="pay2methods">
+            <div className="pay2method">
+              <h3>Wallet </h3>
+            <p>PhonePe, Amazon Pay and more</p>
+            </div>
+
+            <div className="pay2method">
+           <h3>Debit/Credit Card</h3>
+           <p>Save and Pay via Cards</p>              
+           </div>
+
+            <div className="pay2method">
+            <h3>Net Banking</h3>
+            <p>Select from a list of banks</p>
+            </div>
+
+          </div>
+
+          </div>
+
+
+        </div>
+        <div className="pay2delivery">
+          <div className="pay2header2">
+            <h3 className="pay2title">Delivery Address</h3>
+            <span className="pay2change"   onClick={() => navigate("/deliveryaddress")}>Change</span>
+          </div>
+          <p className="pay2name">Sivakumar - 9877665433</p>
+          <p className="pay2address">612/2, VOC St, K K Nagar, Tiruchirappalli, Tamil Nadu 620021</p>
+        </div>
+      </div>
+
+      <div className="pay2right">
+      <div className="pay2suggestion">
+        <img src={File} className="pay2icon" />
+  <textarea placeholder="Write any suggestions" className="pay2textarea"></textarea>
+</div>
+        <div className="pay2pricebox">
+          <h3 className="pay2pricetitle">Price Details (2 Items)</h3>
+          <div className="pay2pricerow">
+            <span>Item Total</span>
+            <span>₹620</span>
+          </div>
+          <div className="pay2pricerow">
+            <span>Delivery Charge</span>
+            <span>₹30</span>
+          </div>
+          <div className="pay2pricerow">
+            <span>GST Charge</span>
+            <span>₹50</span>
+          </div>
+          <div className="pay2total">
+            <span>To Pay</span>
+            <span>₹700</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+{/* mobilesection */}
     <div className="payment-container">
       {/* Header */}
       <div className="payment-header">

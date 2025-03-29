@@ -4,7 +4,7 @@
     font-family: "Arial", sans-serif;
   }
   
-  .store-title2 {
+  .store-title {
     color: #DE0000;
     font-weight: 400;
     text-transform: uppercase;
@@ -151,11 +151,23 @@
     .product-grid {
       grid-template-columns: repeat(2, 1fr);
     }
+    .product-section{
+      padding: 30px;
+    }
+   
   }
   
   @media (max-width: 480px) {
     .product-grid {
       grid-template-columns: 1fr;
+    }
+    .store-title{
+      font-size: 15px;
+    }
+    .section-title2 {
+      margin-bottom: 20px;
+      font-weight: bold;
+      font-size: 25px;
     }
   }
   

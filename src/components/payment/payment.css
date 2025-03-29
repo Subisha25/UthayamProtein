@@ -1,5 +1,6 @@
 /* General Styles */
 .payment-container {
+  border-top: 1px solid grey;
     width: 100%;
     max-width: 400px;
     margin: auto;
@@ -320,3 +321,228 @@ line-height: 5px;
 }
 
 
+
+
+
+/* Pay2.css */
+.pay2container {
+ 
+    display: flex;
+    border-top: 1px solid grey;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    padding:50px;
+  }
+  .pay2left {
+    width: 50%;
+  }
+  .pay2right {
+    width: 30%;
+  }
+  
+  .pay2suggestion {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    padding:0px 20px;
+    /* border-radius: 8px; */
+    width: 90%;
+    /* margin-top: 15px; */
+  }
+  
+  .pay2icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  .pay2textarea {
+    padding-top: 13px;
+    width: 90%;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    resize: none;
+  }
+  
+  .pay2box, .pay2delivery, .pay2pricebox {
+    /* background: white; */
+    padding: 15px;
+    border-radius: 8px;
+    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+    margin-bottom: 20px;
+  }
+  .pay2header {
+    border: 1px solid grey;
+    border-radius: 5px ;
+    padding:0px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  .pay2header2 {
+    padding:0px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
+  .pay2change {
+    font-size: 14px;
+    font-weight: 400;
+    color: red;
+    cursor: pointer;
+  }
+
+  .pay2section{
+    margin-top:10px;
+    border: 1px solid grey;
+    border-radius: 10px;
+  }
+
+  .pay2amount {
+    border-bottom: 1px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0px  10px;
+    font-size: 14px;
+    
+  }
+
+  .pay2amount h3{
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .pay2amount span{
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .pay2tick img {
+    width: 20px;
+    /* color: green; */
+    /* font-weight: bold; */
+    
+  }
+
+  .paytmimg{
+    width: 40px;
+    height: 12px;
+    margin-top: 2px;
+  }
+  .pay2options  {
+    padding: 0px 20px;
+    /* font-size: 14px; */
+  }
+  .pay2options p {
+    /* padding: 10px 0px; */
+    /* border-bottom: 1px solid grey; */
+    font-size: 14px;
+  }
+  .pay2upi {
+    display: flex;
+    justify-content: center; /* Centers the icons horizontally */
+    gap: 20px;
+  }
+  .pay2paysect{
+    padding: 30px 0px;
+    border-bottom: 1px solid grey;
+border-top: 1px solid grey;
+  }
+  .pay2upi .payimg {
+    width: 20px;
+    height: auto;
+    /* margin-right: 10px; */
+  }
+  .pay2qr {
+    background: #DE0000;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    width: 70%;
+    cursor: pointer;
+    margin-top: 10px;
+    border-bottom: 1px solid grey;
+    display: flex;
+    justify-content: center; /* Centers text inside the button */
+    align-items: center; /* Centers text vertically */
+    margin-left: auto;
+    margin-right: auto; /* Centers the button */
+  }
+
+  .pay2addupi {
+    color: red;
+    cursor: pointer;
+  }
+  .pay2methods .pay2method {
+    /* background: #f5f5f5; */
+    border-top: 1px solid grey;
+    padding: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+    line-height: 0;
+  }
+
+  .pay2method h3{
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .pay2method p{
+    font-size: 12px;
+    font-weight: 300;
+  }
+  .pay2delivery{
+    margin: 10px;
+    border: 1px solid grey;
+    border-radius: 10px ;
+  }
+  .pay2name {
+    color: #858585;
+    font-weight: 450;
+    margin: 5px 0;
+  }
+
+  .pay2address {
+    font-size: 14px;
+    color:#858585;
+    font-weight: 200;
+    width: 55%;
+  }
+  .pay2pricebox {
+    width: 100%;
+  }
+  .pay2pricetitle {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .pay2pricerow, .pay2total {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+  }
+  .pay2total {
+    margin-top: 10px;
+    font-weight: bold;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    padding:10px 0px;
+  }
+  
+
+  @media screen and (max-width: 768px) {
+    .pay2container {
+      display: none; /* Hide desktop section on mobile */
+    }
+  }
+  
+  @media screen and (min-width:769px) {
+    .payment-container {
+      display: none; /* Hide mobile section on desktop */
+    }
+  }

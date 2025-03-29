@@ -9,12 +9,12 @@ import User from '../assets/Vector (1).png';
 import Arrow from '../assets/Vector (2).png';
 import Cart from '../assets/Vector.png';
 import About from "../about/about";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import Search from '../assets/iconamoon_search.png';
 const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,7 +55,7 @@ const Navbar = () => {
         </div>
         
         <div className="header-right">
-          {windowWidth <= 768 && (
+          {/* {windowWidth <= 768 && (
             <button 
               className="mobile-menu-toggle" 
               onClick={() => setMobileMenu(!mobileMenu)}
@@ -65,7 +65,7 @@ const Navbar = () => {
               <span></span>
               <span></span>
             </button>
-          )}
+          )} */}
           
           <nav className={`nav ${mobileMenu ? 'mobile-active' : ''}`}>
           <span className="nav-item">
@@ -82,7 +82,7 @@ const Navbar = () => {
               Cart
             </span> */}
             <Link className="nav-item2" to="/cart">
-              <img src={Cart} className="navimage" alt="" />
+              <img src={Cart} className="navimage" alt=""  onClick={() => navigate("/cart")}/>
               Cart
             </Link>
           </nav>
