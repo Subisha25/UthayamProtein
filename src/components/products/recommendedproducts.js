@@ -12,11 +12,12 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+    const [showAll, setShowAll] = useState(false); // State to track whether all products should be shown
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/products/");
+        const response = await axios.get("http://localhost:5000/api/products/");
         console.log("Products Data:", response.data); // Debug log
         setProducts(response.data);
       } catch (err) {
@@ -29,6 +30,9 @@ const Products = () => {
 
     fetchProducts();
   }, []);
+   // Show only first 6 products initially
+   const displayedProducts = showAll ? products : products.slice(0, 6);
+
 
   return (
     <>
@@ -43,11 +47,11 @@ const Products = () => {
           <p className="error">{error}</p>
         ) : (
           <div className="product-grid">
-            {products.map((product) => (
+            {displayedProducts.map((product) => (
               <div key={product.id} className="product-card">
                 {product.tag && <span className="tag">{product.tag}</span>}
                 <img
-                  src={`http://localhost:3000/${product.image}`}
+                  src={`http://localhost:5000/uploads/${product.image}`}
                   alt={product.title}  
                   className="product-image"
                   onClick={() => navigate("/productdetails", { state: { product } })}
@@ -57,9 +61,10 @@ const Products = () => {
 
                 {product.stock ? (
                   <div className="price-cart-container">
-                    <p className="price">
-                      {product.rate} <span className="original-price"></span>
-                    </p>
+                        <div className="price-container1">
+            <span className="price2">₹{product.originalRate}</span>
+            <span className="old-price1">₹{product.oldRate}</span>
+          </div>
                     <button className="add-to-cart">ADD TO CART</button>
                   </div>
                 ) : (
@@ -70,8 +75,11 @@ const Products = () => {
           </div>
         )}
 
-        <button className="view-all">View All Products</button>
-      </div>
+{!showAll && products.length > 6 && (
+          <button className="view-all" onClick={() => setShowAll(true)}>
+            View All Products
+          </button>
+        )}      </div>
       {/* <Quality /> */}
       <Testimonials />
     </>

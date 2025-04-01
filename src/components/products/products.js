@@ -1,199 +1,3 @@
-// import React from "react";
-// import { useNavigate } from "react-router-dom";
-// import "../products/products.css";
-// import Quality from "../quality/quality";
-// import Testimonials from "../testimonials/testimonials";
-// import image1 from "../products/images/Mask group (1).png";
-// import image2 from "../products/images/Mask group (2).png";
-// import image3 from "../products/images/Mask group (3).png";
-// import image4 from "../products/images/Mask group (4).png";
-// import image5 from "../products/images/Mask group (5).png";
-// import image6 from "../products/images/Mask group (6).png";
-// import Banner from "../banner/banner";
-
-// const products = [
-//   {
-//     id: 1,
-//     name: "Chicken Drumstick Sampler Pack – 5 Pcs",
-//     price: "₹260",
-//     originalPrice: "₹300",
-//     image: image1,
-//     tag: "Limited time Offer",
-//     available: true,
-//   },
-//   {
-//     id: 2,
-//     name: "Roast Chicken",
-//     price: "",
-//     originalPrice: "",
-//     image: image2,
-//     available: false,
-//   },
-//   {
-//     id: 3,
-//     name: "Chicken Chunks",
-//     price: "₹250",
-//     originalPrice: "₹290",
-//     image: image3,
-//     tag: "Popular",
-//     available: true,
-//   },
-//   {
-//     id: 4,
-//     name: "Egg (Nattukoli) – 10 Ns",
-//     price: "₹150",
-//     originalPrice: "₹180",
-//     image: image4,
-//     available: true,
-//   },
-//   {
-//     id: 5,
-//     name: "Chicken Leg – 1 KG",
-//     price: "₹220",
-//     originalPrice: "₹190",
-//     image: image5,
-//     available: true,
-//   },
-//   {
-//     id: 6,
-//     name: "Whole Chicken Roaster (Without Skin)",
-//     price: "₹250",
-//     originalPrice: "₹280",
-//     image: image6,
-//     available: true,
-//   },
-// ];
-
-// const Products = () => {
-//   const navigate = useNavigate();
-
-//   return (
-//     <>
-//     <Banner/>
-//       <div className="product-section">
-//         <p className="store-title">ONLINE STORE</p>
-//         <h2 className="section-title2">Our Popular Products</h2>
-//         <div className="product-grid">
-//           {products.map((product) => (
-//             <div key={product.id} className="product-card">
-//               {product.tag && <span className="tag">{product.tag}</span>}
-//               <img
-//                 src={product.image}
-//                 alt={product.name}
-//                 className="product-image"
-//                 onClick={() => navigate("/productdetails", { state: { product } })}
-//                 style={{ cursor: "pointer" }}
-//               />
-//               <h3 className="product-name">{product.name}</h3>
-
-//               {product.available ? (
-//                 <div className="price-cart-container">
-//                   <p className="price">
-//                     {product.price} <span className="original-price">{product.originalPrice}</span>
-//                   </p>
-//                   <button className="add-to-cart">ADD TO CART</button>
-//                 </div>
-//               ) : (
-//                 <p className="unavailable">Currently unavailable.</p>
-//               )}
-//             </div>
-//           ))}
-//         </div>
-//         <button className="view-all">View All Products</button>
-//       </div>
-//       <Quality />
-//       <Testimonials />
-//     </>
-//   );
-// };
-
-// export default Products;
-
-
-
-// import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import axios from "axios";
-// import "../products/products.css";
-// import Quality from "../quality/quality";
-// import Testimonials from "../testimonials/testimonials";
-// import Banner from "../banner/banner";
-
-// const Products = () => {
-//   const navigate = useNavigate();
-//   const [products, setProducts] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState("");
-
-//   useEffect(() => {
-//     const fetchProducts = async () => {
-//       try {
-//         const response = await axios.get("http://localhost:3000/api/products/");
-//         console.log("Products Data:", response.data); // Debug log
-//         setProducts(response.data);
-//       } catch (err) {
-//         console.error("Failed to load products:", err);
-//         setError("Failed to load products.");
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-  
-//     fetchProducts();
-//   }, []);
-  
-
-//   return (
-//     <>
-//       <Banner />
-//       <div className="product-section">
-//         <p className="store-title">ONLINE STORE</p>
-//         <h2 className="section-title2">Our Popular Products</h2>
-
-//         {loading ? (
-//           <p>Loading products...</p>
-//         ) : error ? (
-//           <p className="error">{error}</p>
-//         ) : (
-//           <div className="product-grid">
-//             {products.map((product) => (
-//               <div key={product.id} className="product-card">
-//                 {product.tag && <span className="tag">{product.tag}</span>}
-//                 <img
-//   src={`http://localhost:3000/${product.image}`} 
-//   alt={product.title}
-//                   className="product-image"
-//                   onClick={() => navigate("/productdetails", { state: { product } })}
-//                   style={{ cursor: "pointer" }}
-//                 />
-//                 <h3 className="product-name">{product.title}</h3>
-
-//                 {product.stock ? (
-//                   <div className="price-cart-container">
-//                     <p className="price">
-//                       {product.rate} <span className="original-price"></span>
-//                     </p>
-//                     <button className="add-to-cart">ADD TO CART</button>
-//                   </div>
-//                 ) : (
-//                   <p className="unavailable">Currently unavailable.</p>
-//                 )}
-//               </div>
-//             ))}
-//           </div>
-//         )}
-
-//         <button className="view-all">View All Products</button>
-//       </div>
-//       <Quality />
-//       <Testimonials />
-//     </>
-//   );
-// };
-
-// export default Products;
-
-
 
 
 import React, { useEffect, useState } from "react";
@@ -209,11 +13,12 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showAll, setShowAll] = useState(false); // State to track whether all products should be shown
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/products/");
+        const response = await axios.get("http://localhost:5000/api/products/");
         console.log("Products Data:", response.data); // Debug log
         setProducts(response.data);
       } catch (err) {
@@ -226,6 +31,9 @@ const Products = () => {
 
     fetchProducts();
   }, []);
+
+  // Show only first 6 products initially
+  const displayedProducts = showAll ? products : products.slice(0, 6);
 
   return (
     <>
@@ -240,12 +48,11 @@ const Products = () => {
           <p className="error">{error}</p>
         ) : (
           <div className="product-grid">
-            {products.map((product) => (
+            {displayedProducts.map((product) => (
               <div key={product.id} className="product-card">
                 {product.tag && <span className="tag">{product.tag}</span>}
-                <img
-                  src={`http://localhost:3000/${product.image}`}
-                  alt={product.title}  
+                <img src={`http://localhost:5000/uploads/${product.image}`}
+                  alt={product.title}
                   className="product-image"
                   onClick={() => navigate("/productdetails", { state: { product } })}
                   style={{ cursor: "pointer" }}
@@ -254,9 +61,10 @@ const Products = () => {
 
                 {product.stock ? (
                   <div className="price-cart-container">
-                    <p className="price">
-                      {product.rate} <span className="original-price"></span>
-                    </p>
+                   <div className="price-container1">
+            <span className="price2">₹{product.originalRate}</span>
+            <span className="old-price1">₹{product.oldRate}</span>
+          </div>
                     <button className="add-to-cart">ADD TO CART</button>
                   </div>
                 ) : (
@@ -267,7 +75,11 @@ const Products = () => {
           </div>
         )}
 
-        <button className="view-all">View All Products</button>
+        {!showAll && products.length > 6 && (
+          <button className="view-all" onClick={() => setShowAll(true)}>
+            View All Products
+          </button>
+        )}
       </div>
       <Quality />
       <Testimonials />
@@ -276,4 +88,3 @@ const Products = () => {
 };
 
 export default Products;
-  

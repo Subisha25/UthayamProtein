@@ -11,15 +11,36 @@ import Cart from '../assets/Vector.png';
 import About from "../about/about";
 import { Link, useNavigate} from "react-router-dom";
 import Search from '../assets/iconamoon_search.png';
+
+
 const Banner = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const [searchOpen, setSearchOpen] = useState(false); // New state for search box
+  const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+
+   // Fetch products based on search query
+   useEffect(() => {
+    if (searchQuery.length > 0) {
+      fetch(`http://localhost:3000/api/products/?search=${searchQuery}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setSuggestions(data); // Store search results
+        })
+        .catch((err) => console.error("Error fetching data:", err));
+    } else {
+      setSuggestions([]); // Clear suggestions when input is empty
+    }
+  }, [searchQuery]);
 
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
+
+
       if (window.innerWidth > 768) {
         setMobileMenu(false);
       }
@@ -60,45 +81,36 @@ const Banner = () => {
         </div>
         
         <div className="header-right">
-          {/* {windowWidth <= 768 && (
-            <button 
-              className="mobile-menu-toggle" 
-              onClick={() => setMobileMenu(!mobileMenu)}
-              aria-label="Toggle menu"
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-          )} */}
-          
+       
           <nav className={`nav ${mobileMenu ? 'mobile-active' : ''}`}>
-          <span className="nav-item" onClick={() => setSearchOpen(!searchOpen)}>
-          <img src={Search} alt="" className="navimage" />
-            Search
-            </span>
+
+{/* Search Icon */}
+<span className="nav-item" onClick={() => setSearchOpen(true)}>
+  <img src={Search} alt="Search" className="navimage" />
+  Search
+</span>
+
+
+
+{searchOpen && (
+  <div className="search-box">
+    <input type="text" placeholder="Search..." className="search-input" />
+    <button className="close-btn" onClick={() => setSearchOpen(false)}>✖</button>
+  </div>
+)}
             <span className="nav-item">
               <img src={User} alt="" className="navimage" />
               Login 
               <img src={Arrow} className="navimage2" alt="" />
             </span>
-            {/* <span className="nav-item2" onClick={() => navigate("/cart")}>
-              <img src={Cart} className="navimage" alt="" />
-              Cart
-            </span> */}
+          
 
 <Link className="nav-item2" to="/cart">
               <img src={Cart} className="navimage" alt="" />
               Cart
             </Link>
           </nav>
-{/* Search Box */}
-{searchOpen && (
-            <div className="search-box">
-              <input type="text" placeholder="Search..." className="search-input" />
-              <button className="close-btn" onClick={() => setSearchOpen(false)}>X</button>
-            </div>
-          )}
+
           <img src={chickenImage} alt="Chicken Meat" className="chicken-img" />
         </div>
       </header>
