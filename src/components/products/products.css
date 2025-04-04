@@ -3,6 +3,13 @@
     padding: 40px;
     font-family: "Arial", sans-serif;
   }
+
+  .products-sections {
+border-top: 1px solid grey;
+    text-align: center;
+    /* padding: 40px; */
+    font-family: "Arial", sans-serif;
+  }
   
   .store-title {
     color: #DE0000;
@@ -51,7 +58,7 @@
   
   .product-image {
     width: 100%; /* Make it take full card width */
-    height: auto; /* Maintain aspect ratio */
+    height: 250px; /* Maintain aspect ratio */
     object-fit: cover; /* Ensure image fills space */
     margin-bottom: 0; /* Remove bottom margin */
   }

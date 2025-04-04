@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./payment.css";
+import productimage from "../cart/images/product1.png";
 import Paytm from '../assets/Frame.png';
 import Gpay from '../assets/Frame (1).png';
 import Phonepay from '../assets/Frame (2).png';
@@ -13,8 +14,11 @@ import Navbar from "../navbar/navbar";
 import File from '../assets/material-symbols_add-notes-outline-rounded.png';
 // import Tick from '../assets/tick.png';
 const PaymentOption = () => {
+    const [quantity, setQuantity] = useState(5);
+      const [addon, setAddon] = useState(2);
   const [selectedPayment, setSelectedPayment] = useState("paytm");
 const navigate = useNavigate();
+const [showPopup, setShowPopup] = useState(false); // State for popup visibility
 
   const paymentOptions = [
     { id: "paytm", label: "Paytm", image: Paytm },
@@ -34,7 +38,8 @@ const navigate = useNavigate();
         <div className="pay2box">
           <div className="pay2header">
             <h3 className="pay2title">Product Details</h3>
-            <span className="pay2change">View/Change</span>
+            <span className="pay2change" 
+             onClick={() => setShowPopup(true)}>View/Change</span>
           </div>
 
           <div className="pay2section">
@@ -203,6 +208,79 @@ const navigate = useNavigate();
   <button className="pay-now-btn"  onClick={() => navigate("/orderconfirmation")}>PAY NOW</button>
 </div>
     </div>
+
+
+      {/* Popup Modal */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <button className="popup-close" onClick={() => setShowPopup(false)}>X</button>
+            <div className="cart-items2">
+        {/* First Product */}
+        <div className="cart-item2">
+          <img src={productimage} alt="Chicken Drumstick" className="item-image2" />
+          <div className="item-details2">
+            <h3>Chicken Drumstick Sampler Pack - 5 Pcs</h3>
+            <div className="price2">
+              <p className="current-price2">₹260</p>
+              <p className="old-price2">₹300</p>
+            </div>
+            <div className="dropdown-container2">
+              <select className="dropdown-select2" value={quantity} onChange={(e) => setQuantity(e.target.value)}>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                  <option key={num} value={num}>
+                    {num} PCS
+                  </option>
+                ))}
+              </select>
+              <select className="dropdown-select2" value={addon} onChange={(e) => setAddon(e.target.value)}>
+                {[0, 1, 2, 3, 4].map((num) => (
+                  <option key={num} value={num}>
+                    Add On ({num})
+                  </option>
+                ))}
+              </select>
+               {/* Custom Red Arrow */}
+      {/* <div className="custom-arrow2"></div> */}
+            </div>
+<p className="removep">REMOVE</p>
+          </div>
+          
+        </div>
+
+
+        <div className="cart-item2">
+          <img src={productimage} alt="Chicken Drumstick" className="item-image2" />
+          <div className="item-details2">
+            <h3>Chicken Drumstick Sampler Pack - 5 Pcs</h3>
+            <div className="price2">
+              <p className="current-price2">₹260</p>
+              <p className="old-price2">₹300</p>
+            </div>
+            <div className="dropdown-container2">
+              <select className="dropdown-select2" value={quantity} onChange={(e) => setQuantity(e.target.value)}>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                  <option key={num} value={num}>
+                    {num} PCS
+                  </option>
+                ))}
+              </select>
+              <select className="dropdown-select2" value={addon} onChange={(e) => setAddon(e.target.value)}>
+                {[0, 1, 2, 3, 4].map((num) => (
+                  <option key={num} value={num}>
+                    Add On ({num})
+                  </option>
+                ))}
+              </select>
+            </div>
+            <p className="removep">REMOVE</p>
+          </div>
+        </div>
+      </div>
+          </div>
+        </div>
+      )}
+
     </>
   );
 };

@@ -26,6 +26,7 @@ const ProductDetails = () => {
     setShowModal(true);
   };
 
+  
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -36,6 +37,8 @@ const ProductDetails = () => {
     }
   };
 
+
+  
   const handleVerifyOTP = () => {
     if (otp.length !== 6) {
       alert("Please enter a valid 6-digit OTP");
@@ -83,7 +86,7 @@ const ProductDetails = () => {
   {/* Add to Cart & Buy Now Buttons */}
   <div className="button-container">
             <button className="add-to-cart-btn">ADD TO CART</button>
-            <button className="buy-now-btn">BUY IT NOW</button>
+            <button className="buy-now-btn"  onClick={handleBuyNowClick}>BUY IT NOW</button>
           </div>
 
 
@@ -198,6 +201,52 @@ const ProductDetails = () => {
             )}
           </div>
         </div>
+        {/* Modal Popup */}
+      {showModal && (
+        <div className="modal-overlay1">
+          <div className="modal-content1">
+            <button className="modal-close1" onClick={handleCloseModal}>✖</button>
+
+            {!showOTPModal ? (
+              <>
+                <h2 className="modal-title1">Login or Signup to Continue Shopping</h2>
+                <div className="modal-input-wrapper1">
+                  <label className="modal-label1">PHONE NUMBER</label>
+                  <div className="modal-input-container1">
+                    <span className="modal-country-code1">IN +91</span>
+                    <input
+                      type="text"
+                      className="modal-input1"
+                      maxLength="10"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <button className="modal-button1" onClick={handleContinue}>CONTINUE</button>
+                <p className="modal-footer1">By clicking, I accept the Terms and Conditions & Privacy Policy</p>
+              </>
+            ) : (
+              <>
+                <p className="modal-text1">Enter OTP sent to <strong>{phoneNumber}</strong></p>
+                <button className="modal-change-number1" onClick={() => setShowOTPModal(false)}>CHANGE NUMBER</button>
+                <div className="modal-otp-input-container1">
+                  <input
+                    type="text"
+                    className="modal-input1"
+                    maxLength="6"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                  />
+                </div>
+                <button className="modal-button1" onClick={handleVerifyOTP}>VERIFY OTP</button>
+                <p className="modal-footer1">By clicking, I accept the Terms and Conditions & Privacy Policy</p>
+
+              </>
+            )}
+          </div>
+        </div>
+      )}
       </div>
       <Recommendedproducts />
     </>
