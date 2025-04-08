@@ -12,6 +12,7 @@ import About from "../about/about";
 import { Link, useNavigate} from "react-router-dom";
 import Search from '../assets/iconamoon_search.png';
 import axios from "axios";
+import { useCart } from '../context/cartContext';
 
 const Banner = ({ onSearch, showSearchResults }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -26,6 +27,8 @@ const Banner = ({ onSearch, showSearchResults }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
  
+  const { cartItems } = useCart();
+
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => {
@@ -35,11 +38,56 @@ const Banner = ({ onSearch, showSearchResults }) => {
     setOtp("");
   };
 
-  const handleContinue = () => setShowOTPModal(true);
-  const handleVerifyOTP = () => {
-    alert("OTP Verified Successfully!");
-    handleCloseModal();
+  const handleContinue = async () => {
+    if (!phoneNumber) {
+      alert("Please enter a phone number.");
+      return;
+    }
+  
+    try {
+      const response = await axios.post("http://localhost:5000/api/auth/send-otp", {
+        phoneNumber,
+      });
+  
+      if (response.status === 200) {
+        alert("OTP sent successfully!");
+        setShowOTPModal(true);
+      }
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+      alert("Failed to send OTP. Please try again.");
+    }
   };
+  
+
+  // const handleContinue = () => setShowOTPModal(true);
+  // const handleVerifyOTP = () => {
+  //   alert("OTP Verified Successfully!");
+  //   handleCloseModal();
+  // };
+
+  const handleVerifyOTP = async () => {
+    if (!otp || !phoneNumber) {
+      alert("Please enter the OTP and phone number.");
+      return;
+    }
+  
+    try {
+      const response = await axios.post("http://localhost:5000/api/auth/verify-otp", {
+        phoneNumber,
+        otp,
+      });
+  
+      if (response.status === 200) {
+        alert("OTP Verified Successfully!");
+        handleCloseModal();
+      }
+    } catch (error) {
+      console.error("OTP verification failed:", error);
+      alert("Invalid or expired OTP. Please try again.");
+    }
+  };
+  
 
   // Search functionality
   const handleSearch = async (e) => {
@@ -175,7 +223,9 @@ const Banner = ({ onSearch, showSearchResults }) => {
           <img src={Search} alt="Search" className="mobimg1" onClick={() => setSearchOpen(true)} />
           <img src={User} alt=" " className="mobimg1" />
           <img src={Arrow} alt=" " className="mobimg2"  onClick={handleOpenModal} />
+        
           <img src={Cart} alt=" " className="mobimg1" onClick={() => navigate("/cart")} />
+          <span>{cartItems.length}</span>
         </div>
       </header>
 
@@ -203,8 +253,8 @@ const Banner = ({ onSearch, showSearchResults }) => {
               <img src={Arrow} className="navimage2" alt="" />
             </span>
           
-            <Link className="nav-item2" to="/cart">
-              <img src={Cart} className="navimage" alt="" />
+            <Link className="nav-item2" to="/cart" >
+              <img src={Cart} className="navimage" alt="" /><span>{cartItems.length}</span>
               Cart
             </Link>
           </nav>
@@ -259,11 +309,13 @@ const Banner = ({ onSearch, showSearchResults }) => {
                   <div className="modal-input-container1">
                     <span className="modal-country-code1">IN +91</span>
                     <input
-                      type="text"
+                      type="tel"
+                      placeholder="Enter phone number"
+                      // value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
                       className="modal-input1"
                       maxLength="10"
                       value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                   </div>
                 </div>
@@ -277,6 +329,7 @@ const Banner = ({ onSearch, showSearchResults }) => {
                 <div className="modal-otp-input-container1">
                   <input
                     type="text"
+                    placeholder="Enter OTP"
                     className="modal-input1"
                     maxLength="6"
                     value={otp}

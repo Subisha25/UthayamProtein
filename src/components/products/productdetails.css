@@ -471,7 +471,16 @@ padding-top: 0px;
     display: block;
   }
 
-
+  .button-container {
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    align-items: center; /* Align them in the middle */
+    position: absolute;
+    bottom: -50px; /* Moves buttons below the border */
+    left: 50%; /* Moves the container to the center */
+    transform: translateX(-50%); /* Adjusts position for perfect centering */
+    width: 100%; /* Ensures the container takes full width */
+  }
 
   /* Show buttons only when dropdown is changed */
   .dropdown1:focus ~ .button-container,
@@ -486,7 +495,7 @@ padding-top: 0px;
 }
 
 
-@media (max-width: 468px) {
+@media (max-width: 500px) {
   .button-container {
     display: none;
   }

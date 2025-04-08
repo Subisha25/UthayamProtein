@@ -24,14 +24,11 @@ function App() {
       <Route path="/" element={<Products />} />
       <Route path='/productdetails' element={<ProductDetails/>}/>
       <Route path='/proceedtopay' element={<ProceedtoPay />}/>
-
       <Route path='/chicken' element={<Chicken />}/>
       <Route path='/kadai' element={<Kadai />}/>
       <Route path='/egg' element={<Egg />}/>
-
       <Route path='/cart' element={<OrderDetails />}/>
       <Route path='/selectaddress' element={<SelectAddress />}/>
-
       <Route path='/deliveryaddress' element={<DeliveryAddress />}/>
       <Route path='/paymentoption' element={<PaymentOption />}/>
       <Route path='/orderconfirmation' element={<OrderConfirmation />}/>

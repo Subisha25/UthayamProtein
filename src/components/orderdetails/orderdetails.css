@@ -134,6 +134,7 @@ line-height: 10px;
     color: red;
     font-size: 12px;
     font-weight: 300;
+    cursor: pointer;
 }
 .suggestion-icon2 {
     align-items: center;
