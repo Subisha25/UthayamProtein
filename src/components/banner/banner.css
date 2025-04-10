@@ -183,6 +183,9 @@
   margin-top: 20px;
 }
 
+.cartitemlength{
+  color: red;
+}
 .search-results-title {
   text-align: center;
   margin-bottom: 30px;

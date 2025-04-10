@@ -7,6 +7,8 @@ import User from "../assets/Vector (1).png";
 import Arrow from "../assets/Vector (2).png";
 import Cart from "../assets/Vector.png";
 import Search from '../assets/iconamoon_search.png';
+import { useCart } from '../context/cartContext';
+
 
 const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -21,6 +23,8 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { cartItems } = useCart(); // ✅ Get cart items from context
+
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => {
@@ -162,6 +166,7 @@ const Navbar = () => {
           <img src={User} alt=" " className="mobimg1" />
           <img src={Arrow} alt=" " className="mobimg2" onClick={handleOpenModal} />
           <img src={Cart} alt=" " className="mobimg1" onClick={() => navigate("/cart")} />
+          <span className="cartitemlength">{cartItems.length}</span>
         </div>
       </header>
 
@@ -185,7 +190,7 @@ const Navbar = () => {
             </span>
 
             <Link className="nav-item2" to="/cart">
-              <img src={Cart} className="navimage" alt="" />
+              <img src={Cart} className="navimage" alt="" /><span  className="cartitemlength">{cartItems.length}</span>
               Cart
             </Link>
           </nav>

@@ -194,7 +194,7 @@ const Banner = ({ onSearch, showSearchResults }) => {
             <img src={Arrow} alt=" " className="mobimg2" onClick={handleOpenModal} />
 
             <img src={Cart} alt=" " className="mobimg1" onClick={() => navigate("/cart")} />
-            <span>{cartItems.length}</span>
+            <span  className="cartitemlength">{cartItems.length}</span>
           </div>
         </header>
 
@@ -223,7 +223,7 @@ const Banner = ({ onSearch, showSearchResults }) => {
               </span>
 
               <Link className="nav-item2" to="/cart" >
-                <img src={Cart} className="navimage" alt="" /><span>{cartItems.length}</span>
+                <img src={Cart} className="navimage" alt="" /><span className="cartitemlength">{cartItems.length}</span>
                 Cart
               </Link>
             </nav>
