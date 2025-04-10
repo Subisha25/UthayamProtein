@@ -6,6 +6,7 @@ import Delivery from '../assets/icon-park-outline_delivery.png';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar/navbar";
 import { useCart } from '../context/cartContext';
+import Products from "../products/products";
 
 
 const OrderDetails = () => {
@@ -18,6 +19,7 @@ const OrderDetails = () => {
   return (
     <>
     <Navbar />
+   
     <div className="cart-container2">
 
         <div className="left2">

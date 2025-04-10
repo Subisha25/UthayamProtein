@@ -13,6 +13,9 @@ import ProceedtoPay from './components/selectaddress/proceedtopay';
 import Chicken from './components/banner/chicken';
 import Kadai from './components/banner/kadai';
 import Egg from './components/banner/egg';
+import Footer from './components/footer/footer';
+import Banner from './components/banner/banner';
+import AllSwitches from './components/banner/all';
 
 function App() {
   return (
@@ -20,8 +23,10 @@ function App() {
     
 <Router>
     <Routes>
-      
-      <Route path="/" element={<Products />} />
+    <Route path="/" element={<Banner />} />
+    <Route path="/all" element={<AllSwitches />} />
+
+      <Route path="/products" element={<Products />} />
       <Route path='/productdetails' element={<ProductDetails/>}/>
       <Route path='/proceedtopay' element={<ProceedtoPay />}/>
       <Route path='/chicken' element={<Chicken />}/>
@@ -36,6 +41,7 @@ function App() {
 
     </Routes>
     </Router>
+    <Footer />
   </div>
   );
 }

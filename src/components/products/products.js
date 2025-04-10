@@ -6,10 +6,10 @@ import Quality from "../quality/quality";
 import Testimonials from "../testimonials/testimonials";
 import Banner from "../banner/banner";
 import { useCart } from '../context/cartContext';
+import Navbar from "../navbar/navbar";
 
 const Products = () => {
   const { addToCartBtn } = useCart();
-
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -18,6 +18,20 @@ const Products = () => {
   const [showAll, setShowAll] = useState(false);
   const [searchMode, setSearchMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [active, setActive] = useState("all");
+
+const switches = [
+    { label: "all", route: "/products" },
+    { label: "chicken", route: "/chicken" },
+    { label: "egg", route: "/egg" },
+    { label: "kadai", route: "/kadai" },
+  ];
+
+  const handleClick = (item) => {
+    setActive(item.label);
+    navigate(item.route); // 🔥 navigate to the route
+  };
+
 
   const handleAddToCart = (product) => {
     const cartProduct = {
@@ -78,8 +92,9 @@ const Products = () => {
 
   return (
     <>
-      <Banner onSearch={handleSearch} showSearchResults={searchMode} />
-      
+      {/* <Banner onSearch={handleSearch} showSearchResults={searchMode} /> */}
+     
+
       <div className={`product-section ${searchMode ? 'search-results-view' : ''}`}>
         {!searchMode && (
           <>
@@ -143,12 +158,12 @@ const Products = () => {
         )}
       </div>
       
-      {!searchMode && (
+      {/* {!searchMode && (
         <>
           <Quality />
           <Testimonials />
         </>
-      )}
+      )} */}
     </>
   );
 };

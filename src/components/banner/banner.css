@@ -175,7 +175,7 @@
 
 /* Hide elements when search results are shown */
 .container.search-active .hidden-on-search {
-  display: none;
+  display: none !important;
 }
 
 /* Search results view in products page */

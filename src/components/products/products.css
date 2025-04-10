@@ -4,10 +4,20 @@
     font-family: "Arial", sans-serif;
   }
 
+  .product-section2 {
+    text-align: center;
+    padding-bottom: 40px;
+    font-family: "Arial", sans-serif;
+  }
+/* .product-section{
+  border-top: 1px solid grey;
+
+} */
+  
   .products-sections {
 border-top: 1px solid grey;
     text-align: center;
-    /* padding: 40px; */
+    padding-bottom: 40px;
     font-family: "Arial", sans-serif;
   }
   
@@ -170,7 +180,89 @@ border-top: 1px solid grey;
     background: red;
     color: white;
   }
+
+.allproducts{
+  border-top: 1px solid grey;
   
+}
+
+
+  
+  .allproducts-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+  }
+  
+  .allproducts-switch-group {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .allproducts-switch-btn {
+    padding: 10px 16px;
+    border-radius: 20px;
+    background-color: #e0e0e0;
+    color: #333;
+    font-size: 14px;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+  
+  .allproducts-switch-btn.active {
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+  }
+  
+
+  .allproducts-switch-btnchicken {
+    padding: 10px 16px;
+    border-radius: 20px;
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+    font-size: 14px;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+  
+
+  
+  .allproducts-switch-btnkadai {
+    padding: 10px 16px;
+    border-radius: 20px;
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);background-color: #e0e0e0;
+    color: #333;
+    font-size: 14px;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+  
+ 
+
+  .allproducts-switch-btnegg {
+    padding: 10px 16px;
+    border-radius: 20px;
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+    font-size: 14px;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+
+
   @media (max-width: 768px) {
     .product-grid {
       grid-template-columns: repeat(2, 1fr);

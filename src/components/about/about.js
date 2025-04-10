@@ -5,7 +5,12 @@ import meatImage1 from "../assets/Hocus Pocus Img-1 1.png"; // Replace with actu
 import Tick from '../assets/Group (1).png';
 import Injuct from '../assets/Vector (3).png';
 import Leaf from '../assets/Vector (4).png';
+import { useNavigate } from "react-router-dom";
+
+
 const About = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="about-section">
       <div className="about-content">
@@ -35,7 +40,7 @@ const About = () => {
             </div>
           </div>
 
-          <button className="book-btn">
+          <button className="book-btn"  onClick={() => navigate("/all")}>
             Book Now <span>→</span>
           </button>
         </div>

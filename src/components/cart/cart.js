@@ -5,6 +5,7 @@ import { FaRegFileAlt } from "react-icons/fa";
 import Delivery from '../assets/icon-park-outline_delivery.png';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar/navbar";
+import Products from "../products/products";
 
 
 const Cart = () => {
@@ -15,6 +16,8 @@ const Cart = () => {
   return (
     <>
     <Navbar />
+
+
     <div className="cart-container">
       <header className="cart-header">
         <span className="back-arrow"  onClick={() => navigate(-1)}>←</span> Cart
