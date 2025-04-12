@@ -162,7 +162,7 @@ const Navbar = () => {
           <img src={logo} alt="Logo" />
         </div>
         <div className="mobileicons">
-          <img src={Search} alt="Search" className="mobimg1" onClick={() => setSearchOpen(true)} />
+          <img src={Search} alt="Search" className="mobimg1" onClick={() => navigate("/search", { state: { query: "" } })} />
           <img src={User} alt=" " className="mobimg1" />
           <img src={Arrow} alt=" " className="mobimg2" onClick={handleOpenModal} />
           <img src={Cart} alt=" " className="mobimg1" onClick={() => navigate("/cart")} />
@@ -178,7 +178,7 @@ const Navbar = () => {
         <div className="header-right">
           <nav className={`nav ${mobileMenu ? 'mobile-active' : ''}`}>
             {/* Search Box Trigger */}
-            <span className="nav-item" onClick={() => setSearchOpen(true)}>
+            <span className="nav-item" onClick={() => navigate("/search", { state: { query: "" } })}>
               <img src={Search} alt="Search" className="navimage" />
               Search
             </span>

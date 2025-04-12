@@ -17,6 +17,8 @@ import Products from "../products/products";
 import Testimonials from "../testimonials/testimonials";
 import Quality from "../quality/quality";
 
+
+
 const Banner = ({ onSearch, showSearchResults }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -189,7 +191,7 @@ const Banner = ({ onSearch, showSearchResults }) => {
 
           {/* Right side - Icons */}
           <div className="mobileicons">
-            <img src={Search} alt="Search" className="mobimg1" onClick={() => setSearchOpen(true)} />
+            <img src={Search} alt="Search" className="mobimg1"onClick={() => navigate("/search", { state: { query: "" } })} />
             <img src={User} alt=" " className="mobimg1" />
             <img src={Arrow} alt=" " className="mobimg2" onClick={handleOpenModal} />
 
@@ -211,7 +213,7 @@ const Banner = ({ onSearch, showSearchResults }) => {
           <div className="header-right">
             <nav className={`nav ${mobileMenu ? 'mobile-active' : ''}`}>
               {/* Search Icon */}
-              <span className="nav-item" onClick={() => setSearchOpen(true)}>
+              <span className="nav-item" onClick={() => navigate("/search", { state: { query: "" } })}>
                 <img src={Search} alt="Search" className="navimage" />
                 Search
               </span>

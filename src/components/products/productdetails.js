@@ -3,9 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../navbar/navbar";
 import Recommendedproducts from "./recommendedproducts";
 import "../products/productdetails.css";
-import thumb1 from "../products/images/Mask group (1).png";
-import thumb2 from "../products/images/Mask group (2).png";
-import thumb3 from "../products/images/Mask group (3).png";
+
 
 
 const ProductDetails = () => {
@@ -17,11 +15,16 @@ const ProductDetails = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [showOTPModal, setShowOTPModal] = useState(false);
   const [otp, setOtp] = useState("");
-  const selectedProducts = {
-    image: "images/main.jpg",
-    thumbnailImages: [thumb1, thumb2, thumb3] // Use imported images
+  const [selectedIndex, setSelectedIndex] = useState(0); // default first thumb
 
-  };
+  const [selectedImage, setSelectedImage] = useState(
+    `http://localhost:5000/uploads/${selectedProduct?.image}`
+  );
+  const thumbnails = [
+    `http://localhost:5000/uploads/${selectedProduct?.image}`,
+    `http://localhost:5000/uploads/${selectedProduct?.image}`,
+    `http://localhost:5000/uploads/${selectedProduct?.image}`
+  ];
   const handleBuyNowClick = () => {
     setShowModal(true);
   };
@@ -39,12 +42,13 @@ const ProductDetails = () => {
     }
   };
   const handleVerifyOTP = () => {
-    if (otp.length === 6) {
-      alert("OTP Verified Successfully!");
-      handleCloseModal();
-    } else {
-      alert("Please enter a valid 6-digit OTP.");
+    if (otp.length !== 6) {
+      alert("Please enter a valid 6-digit OTP");
+      return;
     }
+    setShowModal(false);
+    setShowOTPModal(false);
+    navigate("/deliveryaddress");
   };
 
 
@@ -71,15 +75,20 @@ const ProductDetails = () => {
 
             {/* Thumbnails (Aligned to the Left) */}
             <div className="thumbnail-container">
-              {selectedProducts.thumbnailImages.map((thumbnail, index) => (
-                <img
-                  key={index}
-                  src={thumbnail}
-                  alt="thumbnail"
-                  className="thumbnail"
-                />
-              ))}
-            </div>
+  {thumbnails.map((thumb, index) => (
+    <img
+      key={index}
+      src={thumb}
+      alt={`thumb-${index}`}
+      className={`thumbnail ${selectedIndex === index ? "active-thumbnail" : ""}`}
+      onClick={() => {
+        setSelectedImage(thumb);
+        setSelectedIndex(index);
+      }}
+    />
+  ))}
+</div>
+
           </div>
           {/* Add to Cart & Buy Now Buttons */}
           <div className="button-container">

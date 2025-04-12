@@ -9,6 +9,11 @@
   padding: 20px;
   margin-bottom: 50px;
 }
+.thumbnail.active-thumbnail {
+  border: 1px solid #000;
+  opacity: 1;
+}
+
 
 /* Image Gallery Section */
 .image-gallery {

@@ -64,7 +64,7 @@
 .nav {
   margin-top: 30px;
   display: flex;
-  gap: 30px;
+  gap: 100px;
   margin-bottom: 20px;
 }
 
@@ -185,6 +185,13 @@
 
 .cartitemlength{
   color: red;
+  font-size: 10px;
+  margin-bottom: 30px;
+  padding: 0px 5px;
+  border-radius: 50px;
+  font-weight: 600;
+  /* background-color: #f0f0f0; light grey */
+  border: 1px solid #c20909;
 }
 .search-results-title {
   text-align: center;
@@ -382,15 +389,23 @@
   cursor: pointer; /* Ensures cursor changes to pointer */
 }
 
-
-
-.nav-item, .nav-item2 {
+.nav-item {
   cursor: pointer;
   text-decoration: none ;
   color: black;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 10px; 
+  font-size: clamp(14px, 1.5vw, 16px);
+}
+
+.nav-item2 {
+  cursor: pointer;
+  text-decoration: none ;
+  color: black;
+  display: flex;
+  align-items: center;
+  /* gap: 10px; */
   font-size: clamp(14px, 1.5vw, 16px);
 }
 
@@ -501,14 +516,19 @@
   
   .mobileicons {
     margin-top: 0;
-    padding-top: 0;
+    padding-top: 20px;
     display: flex;
-   
-   
     /* font-size: 20px; */
     cursor: pointer;
   }
-  
+  .cartitemlength{
+    border: none;
+    font-size: 10px;
+ margin-top: -10px;
+ padding-left: 2px;
+ 
+  }
+
   .mobimg1 {
     width: 15px;
     height: 15px;
