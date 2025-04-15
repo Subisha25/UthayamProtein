@@ -25,17 +25,18 @@ const PaymentOption = () => {
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
   const location = useLocation();
   const selectedAddress = location.state?.selectedAddress;
+  const itemsToDisplay = location.state?.itemsToShow || cartItems;
 
   const DELIVERY_CHARGE = 30;
   const GST_CHARGE = 50;
 
-  // Calculate total from cartItems
-const itemTotal = cartItems.reduce((total, item) => {
-  const quantity = item.quantity || 1;
-  return total + (item.originalRate * quantity);
-}, 0);
 
-const totalToPay = itemTotal + DELIVERY_CHARGE + GST_CHARGE;
+  const itemTotal = itemsToDisplay.reduce((total, item) => {
+    const quantity = item.quantity || 1;
+    return total + (item.originalRate * quantity);
+  }, 0);
+  
+  const totalToPay = itemTotal + DELIVERY_CHARGE + GST_CHARGE;
 
 
   const paymentOptions = [
@@ -257,38 +258,30 @@ const totalToPay = itemTotal + DELIVERY_CHARGE + GST_CHARGE;
 
         {/* First Product */}
 
-        {cartItems.map((item, index) => (
-        <div className="cart-item2" key={index}>
-          <img src={item.image} alt={item.title} className="item-image2" />
-
-{/* <img src={`http://localhost:5000/uploads/${item.image}`} alt={item.title} className="item-image2" /> */}
-<div className="item-details2">
-            <h3>{item.title}</h3>
-            <div className="price2">
-              <p className="current-price2">₹{item.originalRate}</p>
-              <p className="old-price2">₹{item.oldRate}</p>
-            </div>
-            <div className="dropdown-container2">
-              {/* Optional: quantity dropdown */}
-              <select className="dropdown-select2">
-                {[1, 2, 3, 4, 5].map((num) => (
-                  <option key={num} value={num}>
-                    {num} PCS
-                  </option>
-                ))}
-              </select>
-              <select className="dropdown-select2">
-                {[0, 1, 2, 3].map((num) => (
-                  <option key={num} value={num}>
-                    Add On ({num})
-                  </option>
-                ))}
-              </select>
-            </div>
-            <p className="removep" onClick={() => removeFromCart(item.id)}>REMOVE</p>
-          </div>
-        </div>
-      ))}
+        {itemsToDisplay.map((item, index) => (
+  <div className="cart-item2" key={index}>
+    <img src={`http://localhost:5000/uploads/${item.image}`} alt={item.title} className="item-image2" />
+    <div className="item-details2">
+      <h3>{item.title}</h3>
+      <div className="price2">
+        <p className="current-price2">₹{item.originalRate}</p>
+        <p className="old-price2">₹{item.oldRate}</p>
+      </div>
+      <div className="dropdown-container2">
+        <select className="dropdown-select2">
+          {[1, 2, 3, 4, 5].map((num) => (
+            <option key={num} value={num}>{num} PCS</option>
+          ))}
+        </select>
+        <select className="dropdown-select2">
+          {[0, 1, 2, 3].map((num) => (
+            <option key={num} value={num}>Add On ({num})</option>
+          ))}
+        </select>
+      </div>
+    </div>
+  </div>
+))}
 
 
       </div>

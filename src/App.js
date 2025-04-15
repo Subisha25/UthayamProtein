@@ -67,6 +67,8 @@ import Banner from './components/banner/banner';
 import AllSwitches from './components/banner/all';
 import Search from './components/banner/search';
 import AdminLogin from './components/adminlogin/adminlogin';
+import Cart from './components/cart/cart';
+import AdminProductDashboard from './components/AdminDashboard/AdminDashboard';
 
 function App() {
   const location = useLocation();
@@ -83,13 +85,16 @@ function App() {
         <Route path="/chicken" element={<Chicken />} />
         <Route path="/kadai" element={<Kadai />} />
         <Route path="/egg" element={<Egg />} />
-        <Route path="/cart" element={<OrderDetails />} />
+        <Route path="/orderdetails" element={<OrderDetails />} />
         <Route path="/selectaddress" element={<SelectAddress />} />
         <Route path="/deliveryaddress" element={<DeliveryAddress />} />
         <Route path="/paymentoption" element={<PaymentOption />} />
         <Route path="/orderconfirmation" element={<OrderConfirmation />} />
         <Route path="/search" element={<Search />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/admindashboard" element={<AdminProductDashboard />} />
+
 
       </Routes>
       {!excludedRoutes.includes(location.pathname) && <Footer />}

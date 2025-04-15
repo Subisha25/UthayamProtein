@@ -49,6 +49,8 @@ const ProductDetails = () => {
     setShowModal(false);
     setShowOTPModal(false);
     navigate("/deliveryaddress");
+    navigate("/orderdetails", { state: { singleProduct: selectedProduct } });
+
   };
 
 
