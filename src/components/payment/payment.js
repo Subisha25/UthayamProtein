@@ -4,6 +4,7 @@ import productimage from "../cart/images/product1.png";
 import Paytm from '../assets/Frame.png';
 import Gpay from '../assets/Frame (1).png';
 import Phonepay from '../assets/Frame (2).png';
+import COD from '../assets/cash-delivery.avif';
 import UPI from '../assets/Frame (3).png';
 import { IoIosArrowDown } from "react-icons/io";
 import Delivery from '../assets/icon-park-outline_delivery.png';
@@ -16,8 +17,7 @@ import { useCart } from '../context/cartContext';
 
 
 const PaymentOption = () => {
-      const { cartItems, removeFromCart } = useCart();
-  
+  const { cartItems, removeFromCart } = useCart();
   const [quantity, setQuantity] = useState(5);
   const [addon, setAddon] = useState(2);
   const [selectedPayment, setSelectedPayment] = useState("paytm");
@@ -35,15 +35,29 @@ const PaymentOption = () => {
     const quantity = item.quantity || 1;
     return total + (item.originalRate * quantity);
   }, 0);
-  
+
   const totalToPay = itemTotal + DELIVERY_CHARGE + GST_CHARGE;
 
+  const [isOn, setIsOn] = useState(false);
+
+  const handleToggle = () => {
+    setIsOn(!isOn);
+  };
+
+  const handleOrder = () => {
+    if (isOn) {
+      navigate("/orderconfirmation")
+      // alert("Order placed successfully!");
+    }
+  };
 
   const paymentOptions = [
     { id: "paytm", label: "Paytm", image: Paytm },
     { id: "gpay", label: "Google Pay", image: Gpay },
     { id: "phonepe", label: "PhonePe", image: Phonepay },
     { id: "upi", label: "Pay with any UPI App", image: UPI },
+    { id: "cod", label: "Cah On Delivery", image: COD },
+
   ];
 
   return (
@@ -77,6 +91,23 @@ const PaymentOption = () => {
                     <img className="payimg" src={Phonepay} alt="PhonePe" />
                   </div>
                   <button className="pay2qr">View QR Code</button>
+
+                  <div className="cod-container">
+      <label className="cod-label">Cash on Delivery</label>
+      <label className="switch">
+        <input type="checkbox" checked={isOn} onChange={handleToggle} />
+        <span className={`slider ${isOn ? "on" : ""}`}></span>
+      </label>
+      </div>
+      <button
+        className="pay2qr"
+        onClick={handleOrder}
+        disabled={!isOn}
+      >
+        Order Placed
+      </button>
+   
+
                 </div>
                 <p className="pay2addupi">+ADD UPI ID</p>
               </div>
@@ -221,7 +252,7 @@ const PaymentOption = () => {
                 <img src={Delivery} />
                 <h4>Deliver to</h4>
               </div>
-              <span className="change-btn"  onClick={() => navigate("/selectaddress")}>Change</span>
+              <span className="change-btn" onClick={() => navigate("/selectaddress")}>Change</span>
             </div>
 
             {selectedAddress ? (
@@ -245,46 +276,67 @@ const PaymentOption = () => {
             <span className="amount">₹{totalToPay}</span><br />
             <p className="detailed-bill">View Detailed Bill</p>
           </div>
-          <button className="pay-now-btn" onClick={() => navigate("/orderconfirmation")}>PAY NOW</button>
+
+          {selectedPayment === "cod" ? (
+  <button className="pay-now-btn" onClick={() => navigate("/orderconfirmation")}>
+    ORDER PLACED
+  </button>
+) : (
+  <button className="pay-now-btn" onClick={() => navigate("/orderconfirmation")}>
+    PAY NOW
+  </button>
+)}
+
+          {/* <button className="pay-now-btn" onClick={() => navigate("/orderconfirmation")}>PAY NOW</button> */}
         </div>
       </div>
 
-     {/* Popup Modal */}
-     {showPopup && (
+      {/* Popup Modal */}
+      {showPopup && (
         <div className="popup-overlay">
           <div className="popup-content">
             <button className="popup-close" onClick={() => setShowPopup(false)}>X</button>
             <div className="cart-items2">
 
-        {/* First Product */}
+              {/* First Product */}
 
-        {itemsToDisplay.map((item, index) => (
-  <div className="cart-item2" key={index}>
-    <img src={`http://localhost:5000/uploads/${item.image}`} alt={item.title} className="item-image2" />
-    <div className="item-details2">
-      <h3>{item.title}</h3>
-      <div className="price2">
-        <p className="current-price2">₹{item.originalRate}</p>
-        <p className="old-price2">₹{item.oldRate}</p>
-      </div>
-      <div className="dropdown-container2">
-        <select className="dropdown-select2">
-          {[1, 2, 3, 4, 5].map((num) => (
-            <option key={num} value={num}>{num} PCS</option>
-          ))}
-        </select>
-        <select className="dropdown-select2">
-          {[0, 1, 2, 3].map((num) => (
-            <option key={num} value={num}>Add On ({num})</option>
-          ))}
-        </select>
-      </div>
-    </div>
-  </div>
-))}
+              {itemsToDisplay.map((item, index) => (
+                <div className="cart-item2" key={index}>
+                  <img
+                    src={
+                      item.image.startsWith("http")
+                        ? item.image
+                        : `http://localhost:5000/uploads/${item.image}`
+                    }
+                    alt={item.title}
+                    className="item-image2"
+                  />
+
+                  {/* <img src={`http://localhost:5000/uploads/${item.image}`} alt={item.title} className="item-image2" /> */}
+                  <div className="item-details2">
+                    <h3>{item.title}</h3>
+                    <div className="price2">
+                      <p className="current-price2">₹{item.originalRate}</p>
+                      <p className="old-price2">₹{item.oldRate}</p>
+                    </div>
+                    <div className="dropdown-container2">
+                      <select className="dropdown-select2">
+                        {[1, 2, 3, 4, 5].map((num) => (
+                          <option key={num} value={num}>{num} PCS</option>
+                        ))}
+                      </select>
+                      <select className="dropdown-select2">
+                        {[0, 1, 2, 3].map((num) => (
+                          <option key={num} value={num}>Add On ({num})</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              ))}
 
 
-      </div>
+            </div>
           </div>
         </div>
       )}

@@ -208,7 +208,17 @@ useEffect(() => {
 
 {itemsToDisplay.map((item, index) => (
   <div className="cart-item2" key={index}>
-    <img src={`http://localhost:5000/uploads/${item.image}`} alt={item.title} className="item-image2" />
+    <img
+  src={
+    item.image.startsWith("http")
+      ? item.image
+      : `http://localhost:5000/uploads/${item.image}`
+  }
+  alt={item.title}
+  className="item-image2"
+/>
+
+    {/* <img src={`http://localhost:5000/uploads/${item.image}`} alt={item.title} className="item-image2" /> */}
     <div className="item-details2">
       <h3>{item.title}</h3>
       <div className="price2">

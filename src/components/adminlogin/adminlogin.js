@@ -24,7 +24,7 @@ const AdminLogin = () => {
       console.log("response.ok:", response.ok);
       console.log("data:", data);
       if (email === "admin@gmail.com" && password === "admin123") {
-        navigate("/");
+        navigate("/admindashboard");
       }
        else {
         setMessage(data.message);
@@ -36,6 +36,7 @@ const AdminLogin = () => {
   };
 
   return (
+  
     <div className="login-container">
       <h2>Admin Login</h2>
       <form onSubmit={handleSubmit}>

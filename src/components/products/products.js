@@ -157,13 +157,7 @@ const switches = [
           </button>
         )}
       </div>
-      
-      {/* {!searchMode && (
-        <>
-          <Quality />
-          <Testimonials />
-        </>
-      )} */}
+ 
     </>
   );
 };

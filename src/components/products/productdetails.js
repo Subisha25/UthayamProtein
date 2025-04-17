@@ -3,7 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../navbar/navbar";
 import Recommendedproducts from "./recommendedproducts";
 import "../products/productdetails.css";
-
+import { useCart } from '../context/cartContext';
+import { useEffect } from "react";
 
 
 const ProductDetails = () => {
@@ -16,7 +17,20 @@ const ProductDetails = () => {
   const [showOTPModal, setShowOTPModal] = useState(false);
   const [otp, setOtp] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0); // default first thumb
+  const { addToCartBtn } = useCart(); // Use context to access addToCart function
 
+  const handleAddToCart = () => {
+    const cartProduct = {
+      id: selectedProduct.id,
+      image: `http://localhost:5000/uploads/${selectedProduct.image}`,
+      title: selectedProduct.title,
+      originalRate: selectedProduct.originalRate,
+      oldRate: selectedProduct.oldRate,
+    };
+    addToCartBtn(cartProduct);
+  };
+
+  
   const [selectedImage, setSelectedImage] = useState(
     `http://localhost:5000/uploads/${selectedProduct?.image}`
   );
@@ -29,7 +43,8 @@ const ProductDetails = () => {
     setShowModal(true);
   };
 
-
+  const isAvailable = selectedProduct.originalRate > 0;
+  const price = `stock-status text-sm font-medium ${isAvailable ? 'text-green-600' : 'text-red-600'}`;
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -53,7 +68,11 @@ const ProductDetails = () => {
 
   };
 
-
+  useEffect(() => {
+    if (selectedProduct) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [selectedProduct]);
   if (!selectedProduct) {
     navigate("/");
     return null;
@@ -93,10 +112,12 @@ const ProductDetails = () => {
 
           </div>
           {/* Add to Cart & Buy Now Buttons */}
-          <div className="button-container">
-            <button className="add-to-cart-btn">ADD TO CART</button>
-            <button className="buy-now-btn" onClick={handleBuyNowClick}>BUY IT NOW</button>
-          </div>
+          {isAvailable && (
+  <div className="button-container">
+    <button className="add-to-cart-btn">ADD TO CART</button>
+    <button className="buy-now-btn" onClick={handleBuyNowClick}>BUY IT NOW</button>
+  </div>
+)}
 
 
         </div>
@@ -113,8 +134,9 @@ const ProductDetails = () => {
             <span className="old-price">₹{selectedProduct.oldRate}</span>
           </div>
           {selectedProduct.tag && <div className="offer-tag">Limited time Offer</div>}
-          <p className="stock-status">In Stock</p>
-
+          <p className={price}>
+  {isAvailable ? 'In Stock' : 'Out of Stock'}
+</p>
           <label className="dropdown-label">Pieces</label>
           <select className="dropdown">
             <option>5 PCS</option>
@@ -129,10 +151,13 @@ const ProductDetails = () => {
             <option>Marination</option>
           </select>
           {/* Mobile Buttons (below dropdowns) */}
-          <div className="mobile-button-container">
-            <button className="add-to-cart-btn">ADD TO CART</button>
-            <button className="buy-now-btn" onClick={handleBuyNowClick}>BUY IT NOW</button>
-          </div>
+         {/* Show mobile buttons only if product is in stock */}
+{isAvailable && (
+  <div className="mobile-button-container">
+    <button className="add-to-cart-btn">ADD TO CART</button>
+    <button className="buy-now-btn" onClick={handleBuyNowClick}>BUY IT NOW</button>
+  </div>
+)}
 
           {showModal && (
             <div className="modal-overlay">

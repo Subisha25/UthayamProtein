@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../orderdetails/orderdetails.css";
-import productimage from "../cart/images/product1.png";
 import { FaRegFileAlt } from "react-icons/fa";
 import Delivery from '../assets/icon-park-outline_delivery.png';
 import { useNavigate } from "react-router-dom";
@@ -36,7 +35,7 @@ const totalToPay = itemTotal + DELIVERY_CHARGE + GST_CHARGE;
 
         <div className="left2">
       <header className="cart-header2">
-         Order Details
+         Cart Details
       </header>
 
 

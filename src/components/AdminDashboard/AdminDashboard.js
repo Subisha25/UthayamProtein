@@ -3,6 +3,8 @@ import '../AdminDashboard/AdminDashboard.css';
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { RxCross2 } from "react-icons/rx";
+import { FaPlus } from "react-icons/fa6";
 
 
 const AdminProductDashboard = () => {
@@ -18,6 +20,8 @@ const AdminProductDashboard = () => {
   });
   const [preview, setPreview] = useState(null);
   const [editId, setEditId] = useState(null);
+  const [confirmEditPopup, setConfirmEditPopup] = useState({ visible: false, product: null });
+  const [confirmDeletePopup, setConfirmDeletePopup] = useState({ visible: false, productId: null });
 
   const fetchProducts = async () => {
     const res = await fetch("http://localhost:5000/api/products");
@@ -95,11 +99,19 @@ const AdminProductDashboard = () => {
     <div className="admin-container">
       <h1 className="admin-title">Admin Dashboard - Products</h1>
       <button className="admin-add-btn" onClick={() => setShowForm(!showForm)}>
-        ➕ Add New Product
+        <FaPlus className="faplus"/> Add New Product
       </button>
 
       {showForm && (
+        <div class="form-wrapper"  style={{ position: 'relative' }}>
+          
         <form className="admin-form" onSubmit={handleSubmit}>
+        <div className="admin-form-header">
+        <div></div> {/* placeholder to push the close icon to the right */}
+        <Link className="admin-close" onClick={() => setShowForm(false)}>
+          <RxCross2 size={22} />
+        </Link>
+      </div>
           <input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleInputChange} required />
           <input type="number" name="originalRate" placeholder="Original Rate" value={formData.originalRate} onChange={handleInputChange} required />
           <input type="number" name="oldRate" placeholder="Old Rate" value={formData.oldRate} onChange={handleInputChange} />
@@ -110,35 +122,122 @@ const AdminProductDashboard = () => {
             {editId ? "Update" : "Add"} Product
           </button>
         </form>
+        </div>
       )}
 
-      <table className="admin-table">
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Original Rate</th>
-            <th>Old Rate</th>
-            <th>Stock</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((p) => (
-            <tr key={p.id}>
-              <td><img src={`http://localhost:5000/uploads/${p.image}`} className="admin-table-img" /></td>
-              <td>{p.title}</td>
-              <td>{p.originalRate}</td>
-              <td>{p.oldRate}</td>
-              <td>{p.stock}</td>
-              <td>
-                <Link className="admin-edit-btn" onClick={() => handleEdit(p)}><FaUserEdit /></Link>
-                <Link className="admin-delete-btn" onClick={() => handleDelete(p.id)}><MdDelete /></Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+{!showForm && (
+  <table className="admin-table">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Original Rate</th>
+        <th>Old Rate</th>
+        <th>Stock</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {products.map((p) => (
+        <tr key={p.id}>
+          <td><img src={`http://localhost:5000/uploads/${p.image}`} className="admin-table-img" /></td>
+          <td>{p.title}</td>
+          <td>{p.originalRate}</td>
+          <td>{p.oldRate}</td>
+          <td>{p.stock}</td>
+          <td>
+          <Link
+  className="admin-edit-btn"
+  onClick={() => setConfirmEditPopup({ visible: true, product: p })}
+>
+  <FaUserEdit />
+</Link>
+<Link
+  className="admin-delete-btn"
+  onClick={() => setConfirmDeletePopup({ visible: true, productId: p.id })}
+>
+  <MdDelete />
+</Link>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+)}
+
+{confirmEditPopup.visible && (
+  <div className="admin-popup-overlay">
+    <div className="admin-popup">
+      <button
+        className="admin-popup-close"
+        onClick={() => setConfirmEditPopup({ visible: false, product: null })}
+      >
+        <RxCross2 size={20} />
+      </button>
+
+      <div className="admin-popup-header">
+        <p>Do you want to edit this product?</p>
+      </div>
+
+      <div className="admin-popup-buttons">
+        <button
+          className="admin-popup-cancel"
+          onClick={() => setConfirmEditPopup({ visible: false, product: null })}
+        >
+          Cancel
+        </button>
+        <button
+          className="admin-popup-confirm"
+          onClick={() => {
+            handleEdit(confirmEditPopup.product);
+            setConfirmEditPopup({ visible: false, product: null });
+          }}
+        >
+          Edit
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
+{confirmDeletePopup.visible && (
+  <div className="admin-popup-overlay">
+    <div className="admin-popup">
+    <button
+        className="admin-popup-close"
+        onClick={() => setConfirmDeletePopup({ visible: false, product: null })}
+      >
+        <RxCross2 size={20} />
+      </button>
+
+      <div className="admin-popup-header">
+      <p>Are you sure you want to delete this product?</p>
+      </div>
+
+      <div className="admin-popup-buttons">
+        <button
+          className="admin-popup-cancel"
+          onClick={() => setConfirmDeletePopup({ visible: false, productId: null })}
+        >
+          Cancel
+        </button>
+        <button
+          className="admin-popup-confirm delete"
+          onClick={async () => {
+            await handleDelete(confirmDeletePopup.productId);
+            setConfirmDeletePopup({ visible: false, productId: null });
+          }}
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+   
     </div>
   );
 };
