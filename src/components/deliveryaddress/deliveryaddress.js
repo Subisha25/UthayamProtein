@@ -17,57 +17,74 @@ const DeliveryAddress = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    console.log("Sending Data:", data); // Debugging
-
-    try {
-      const response = await fetch("http://localhost:5000/api/delivery-address", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+  const onSubmit = (data) => {
+    console.log("Saving to localStorage:", data);
     
-      const result = await response.json();
-      console.log("Full API response:", result); // Log the complete response
-    
-      if (response.ok) {
-        alert("Address saved successfully!");
-        navigate("/cart");
-      } else {
-        console.error("Error details:", result); // Log error details
-        alert(result.message || "Something went wrong!");
-      }
-    } catch (error) {
-      console.error("Error saving address:", error);
-      alert("Failed to save address. Please try again.");
-    }
-
-
-    // try {
-    //   const response = await fetch("http://localhost:5000/api/delivery-address", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(data),
-       
-    //   });
-
-    //   const result = await response.json();
-
-    //   if (response.ok) {
-    //     alert("Address saved successfully!");
-    //     navigate("/cart");
-    //   } else {
-    //     alert(result.message || "Something went wrong!");
-    //   }
-    // } catch (error) {
-    //   console.error("Error saving address:", error);
-    //   alert("Failed to save address. Please try again.");
-    // }
+    // get previous addresses
+    const storedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
+  
+    // add new address
+    const updatedAddresses = [...storedAddresses, data];
+  
+    // save back to localStorage
+    localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
+  
+    alert("Address saved successfully!");
+    navigate("/cart"); // or navigate("/selectaddress") based on your flow
   };
+  
+
+  // const onSubmit = async (data) => {
+  //   console.log("Sending Data:", data); // Debugging
+
+  //   try {
+  //     const response = await fetch("http://localhost:5000/api/delivery-address", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+    
+  //     const result = await response.json();
+  //     console.log("Full API response:", result); // Log the complete response
+    
+  //     if (response.ok) {
+  //       alert("Address saved successfully!");
+  //       navigate("/cart");
+  //     } else {
+  //       console.error("Error details:", result); // Log error details
+  //       alert(result.message || "Something went wrong!");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error saving address:", error);
+  //     alert("Failed to save address. Please try again.");
+  //   }
+
+
+  //   // try {
+  //   //   const response = await fetch("http://localhost:5000/api/delivery-address", {
+  //   //     method: "POST",
+  //   //     headers: {
+  //   //       "Content-Type": "application/json",
+  //   //     },
+  //   //     body: JSON.stringify(data),
+       
+  //   //   });
+
+  //   //   const result = await response.json();
+
+  //   //   if (response.ok) {
+  //   //     alert("Address saved successfully!");
+  //   //     navigate("/cart");
+  //   //   } else {
+  //   //     alert(result.message || "Something went wrong!");
+  //   //   }
+  //   // } catch (error) {
+  //   //   console.error("Error saving address:", error);
+  //   //   alert("Failed to save address. Please try again.");
+  //   // }
+  // };
 
   return (
     <div className="cart-container">
@@ -76,7 +93,7 @@ const DeliveryAddress = () => {
           <span className="back-arrow" onClick={() => navigate(-1)}>
             <FaArrowLeft />
           </span>
-          Add Delivery Address
+          <p>Add Delivery Address</p>
         </header>
 
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -127,7 +144,7 @@ const DeliveryAddress = () => {
             </div>
           </div>
 
-          <div className="section contact">
+          <div className="section-contact">
             <div className="section-title">
               <img src={contact_icon} alt="contact_icon" className="contact_icon" />
               Contact Person

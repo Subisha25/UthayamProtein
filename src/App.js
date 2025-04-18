@@ -19,6 +19,8 @@ import AdminLogin from './components/adminlogin/adminlogin';
 import Cart from './components/cart/cart';
 import AdminProductDashboard from './components/AdminDashboard/AdminDashboard';
 import ScrollTop from './components/AutoScroll';
+import BankSearch from './components/payment/netbank';
+import DebitCardForm from './components/payment/DebitCardForm';
 
 function App() {
   const location = useLocation();
@@ -44,6 +46,9 @@ function App() {
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/admindashboard" element={<AdminProductDashboard />} />
+        <Route path="/netbank" element={<BankSearch />} />
+        <Route path="/debitcard" element={<DebitCardForm />} />
+
       </Routes>
 
       {!excludedRoutes.includes(location.pathname) && <Footer />}

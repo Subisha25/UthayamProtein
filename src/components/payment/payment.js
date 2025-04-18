@@ -14,7 +14,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../navbar/navbar";
 import File from '../assets/material-symbols_add-notes-outline-rounded.png';
 import { useCart } from '../context/cartContext';
-
+import QRCode from '../products/images/QR_code_for_mobile_English_Wikipedia.svg';
+import { IoIosClose } from "react-icons/io";
 
 const PaymentOption = () => {
   const { cartItems, removeFromCart } = useCart();
@@ -26,6 +27,11 @@ const PaymentOption = () => {
   const location = useLocation();
   const selectedAddress = location.state?.selectedAddress;
   const itemsToDisplay = location.state?.itemsToShow || cartItems;
+  const [showQR, setShowQR] = useState(false);
+
+  const handleToggleQR = () => {
+    setShowQR(!showQR);
+  };
 
   const DELIVERY_CHARGE = 30;
   const GST_CHARGE = 50;
@@ -90,7 +96,7 @@ const PaymentOption = () => {
                     <img className="payimg" src={Gpay} alt="GPay" />
                     <img className="payimg" src={Phonepay} alt="PhonePe" />
                   </div>
-                  <button className="pay2qr">View QR Code</button>
+                  <button className="pay2qr"  onClick={handleToggleQR}>View QR Code</button>
 
                   <div className="cod-container">
       <label className="cod-label">Cash on Delivery</label>
@@ -104,7 +110,7 @@ const PaymentOption = () => {
         onClick={handleOrder}
         disabled={!isOn}
       >
-        Order Placed
+      Continue
       </button>
    
 
@@ -117,12 +123,12 @@ const PaymentOption = () => {
                   <p>PhonePe, Amazon Pay and more</p>
                 </div>
 
-                <div className="pay2method">
+                <div className="pay2method"  onClick={() => navigate("/debitcard")}>
                   <h3>Debit/Credit Card</h3>
                   <p>Save and Pay via Cards</p>
                 </div>
 
-                <div className="pay2method">
+                <div className="pay2method"  onClick={() => navigate("/netbank")}>
                   <h3>Net Banking</h3>
                   <p>Select from a list of banks</p>
                 </div>
@@ -139,6 +145,16 @@ const PaymentOption = () => {
               <h3 className="pay2title">Delivery Address</h3>
               <span className="pay2change" onClick={() => navigate("/selectaddress")}>Change</span>
             </div>
+
+            {showQR && (
+        <div className="qr-popup">
+          <div className="qr-popup-content">
+            <span className="qrclose-btn" onClick={handleToggleQR}><IoIosClose /></span>
+            <img src={QRCode} alt="UPI QR Code" className="qr-image" />
+            <p className="qr-text">Scan using any UPI app</p>
+          </div>
+        </div>
+      )}
 
             {selectedAddress ? (
               <>
@@ -226,11 +242,11 @@ const PaymentOption = () => {
               <h3>Wallet </h3>
               <p>PhonePe, Amazon Pay and more</p>
             </div>
-            <div className="pay-items">
+            <div className="pay-items"  onClick={() => navigate("/debitcard")}>
               <h3>Debit/Credit Card</h3>
               <p>Save and Pay via Cards</p>
             </div>
-            <div className="pay-items1">
+            <div className="pay-items1"  onClick={() => navigate("/netbank")}>
               <h3>Net Banking</h3>
               <p>Select from a list of banks</p>
             </div>
@@ -242,7 +258,7 @@ const PaymentOption = () => {
         <div className="price-section">
           <div className="price-header">
             <h3>Price Details (2 Items)</h3>
-            <span className="dropdown-icon"><IoIosArrowDown /> </span>
+            {/* <span className="dropdown-icon"><IoIosArrowDown /> </span> */}
           </div>
 
           <div className="delivery-address">
@@ -279,7 +295,7 @@ const PaymentOption = () => {
 
           {selectedPayment === "cod" ? (
   <button className="pay-now-btn" onClick={() => navigate("/orderconfirmation")}>
-    ORDER PLACED
+    Continue
   </button>
 ) : (
   <button className="pay-now-btn" onClick={() => navigate("/orderconfirmation")}>

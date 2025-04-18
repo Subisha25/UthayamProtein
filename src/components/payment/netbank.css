@@ -1,0 +1,86 @@
+/* Center the container */
+.netbank-container {
+    border-top: 1px solid grey;
+    padding:0 50px;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    height: 100vh;
+    /* background-color: #f3f4f6; */
+  }
+  
+  /* Search box styling */
+  .netbank-box {
+    width: 100%;
+    height: 300px;
+    /* max-width: 400px; */
+    padding: 16px;
+    /* background-color: #ede135; */
+    border-radius: 10px;
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+  }
+  
+
+ 
+  /* List of banks */
+  .netbank-list {
+    /* background-color: #FFC000; */
+    box-shadow: 0 4px 12px #c7c7c6;
+border-radius: 5px;
+    margin-top: 16px;
+    max-height: 240px;
+    overflow-y: auto;
+    padding: 0;
+    list-style: none;
+  }
+  
+  /* Each bank item */
+  .netbank-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .netbank-item:hover {
+    background-color: #e0f2fe;
+  }
+  
+  /* No results */
+  .netbank-no-results {
+    padding: 10px 16px;
+    color: #6b7280;
+  }
+  
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .netbank-input {
+    width: 95%;
+    padding: 10px 40px 10px 16px; /* space for the icon */
+    border: 1px solid #FFC000;
+    box-shadow: 0 4px 12px #c7c7c6;
+    background-color: #FFC000;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .dropdown-icon {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 30px;
+    color: #6b7280;
+  }
+  
+  .netbank-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  }
+  

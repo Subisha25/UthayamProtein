@@ -30,22 +30,28 @@ const SelectAddress = () => {
   const totalToPay = itemTotal + DELIVERY_CHARGE + GST_CHARGE;
 
 
-useEffect(() => {
-  const fetchAddresses = async () => {
+// useEffect(() => {
+//   const fetchAddresses = async () => {
     
-    try {
+//     try {
       
-      const response = await fetch("http://localhost:5000/api/delivery-address");
-      const data = await response.json();
-      console.log("Fetched addresses:", data);
-      setAddresses(data);
-    } catch (error) {
-      console.error("Error fetching delivery addresses:", error);
-    }
-  };
+//       const response = await fetch("http://localhost:5000/api/delivery-address");
+//       const data = await response.json();
+//       console.log("Fetched addresses:", data);
+//       setAddresses(data);
+//     } catch (error) {
+//       console.error("Error fetching delivery addresses:", error);
+//     }
+//   };
 
-  fetchAddresses();
+//   fetchAddresses();
+// }, []);
+
+useEffect(() => {
+  const storedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
+  setAddresses(storedAddresses);
 }, []);
+
 
 
   return (
@@ -77,19 +83,6 @@ useEffect(() => {
               </span>
             </div>
 
-            {/* <div className="selectadd-address-box">
-              <h3 className="selectadd-address-name">Sivakumar – 9877665433</h3>
-              <p className="selectadd-address-text">
-                612/2, VOC St, K K Nagar, Tiruchirappalli, Tamil Nadu 620021
-              </p>
-              <button 
-                className="selectadd-deliver-btn"  
-                onClick={() => navigate("/proceedtopay")}
-              >
-                Deliver to this address
-              </button>
-            </div> */}
-
 {addresses.map((address) => (
   <div className="selectadd-address-box" key={address.id}>
     <h3 className="selectadd-address-name">
@@ -112,12 +105,6 @@ useEffect(() => {
 </button>
 
 
-    {/* <button
-      className="selectadd-deliver-btn"
-      onClick={() => navigate("/proceedtopay")}
-    >
-      Deliver to this address
-    </button> */}
   </div>
 ))}
 
@@ -173,39 +160,7 @@ useEffect(() => {
             <button className="popup-close" onClick={() => setShowPopup(false)}>X</button>
             <div className="cart-items2">
 
-        {/* First Product */}
-{/* 
-        {cartItems.map((item, index) => (
-        <div className="cart-item2" key={index}>
-          <img src={item.image} alt={item.title} className="item-image2" />
-
-<div className="item-details2">
-            <h3>{item.title}</h3>
-            <div className="price2">
-              <p className="current-price2">₹{item.originalRate}</p>
-              <p className="old-price2">₹{item.oldRate}</p>
-            </div>
-            <div className="dropdown-container2">
-              <select className="dropdown-select2">
-                {[1, 2, 3, 4, 5].map((num) => (
-                  <option key={num} value={num}>
-                    {num} PCS
-                  </option>
-                ))}
-              </select>
-              <select className="dropdown-select2">
-                {[0, 1, 2, 3].map((num) => (
-                  <option key={num} value={num}>
-                    Add On ({num})
-                  </option>
-                ))}
-              </select>
-            </div>
-            <p className="removep" onClick={() => removeFromCart(item.id)}>REMOVE</p>
-          </div>
-        </div>
-      ))} */}
-
+       
 {itemsToDisplay.map((item, index) => (
   <div className="cart-item2" key={index}>
     <img
