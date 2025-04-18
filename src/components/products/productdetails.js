@@ -439,7 +439,8 @@ const ProductDetails = () => {
   const handleContinue = () => {
     if (phoneNumber.length === 10) {
       const fakeOtp = Math.floor(100000 + Math.random() * 900000).toString();
-      alert ("Fake OTP (for demo):", fakeOtp); // show OTP in console
+      alert ("Fake OTP (for demo): " + fakeOtp); // show OTP in console
+      console.log ("Fake OTP (for demo):", fakeOtp); // show OTP in console
       localStorage.setItem("otp", fakeOtp); // store it for verifying later
       localStorage.setItem("tempPhone", phoneNumber); // optional
       setShowOTPModal(true);
