@@ -17,21 +17,50 @@ const DeliveryAddress = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Saving to localStorage:", data);
-    
-    // get previous addresses
-    const storedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
+  const onSubmit = async (data) => {
+    try {
+      const customerId = localStorage.getItem("customerId");
+      const payload = { ...data };
+      if (customerId) payload.customerId = customerId;
   
-    // add new address
-    const updatedAddresses = [...storedAddresses, data];
+      const response = await fetch("http://localhost:5000/api/delivery-address", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
   
-    // save back to localStorage
-    localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
+      const result = await response.json();
   
-    alert("Address saved successfully!");
-    navigate("/cart"); // or navigate("/selectaddress") based on your flow
+      if (!customerId && result.customerId) {
+        localStorage.setItem("customerId", result.customerId);
+      }
+  
+      alert("Address saved successfully!");
+      navigate("/selectaddress");
+    } catch (error) {
+      console.error("Error saving address:", error);
+      alert("Failed to save address");
+    }
   };
+  
+
+  // const onSubmit = (data) => {
+  //   console.log("Saving to localStorage:", data);
+    
+  //   // get previous addresses
+  //   const storedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
+  
+  //   // add new address
+  //   const updatedAddresses = [...storedAddresses, data];
+  
+  //   // save back to localStorage
+  //   localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
+  
+  //   alert("Address saved successfully!");
+  //   navigate("/cart"); // or navigate("/selectaddress") based on your flow
+  // };
   
 
   // const onSubmit = async (data) => {
@@ -86,8 +115,18 @@ const DeliveryAddress = () => {
   //   // }
   // };
 
+  const handleLogout = () => {
+    localStorage.removeItem("customerId");
+    alert("Logged out successfully!");
+    navigate("/"); // or any page you want to redirect to after logout
+  };
+  
+
   return (
     <div className="cart-container">
+
+      <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded">Logout</button>
+     
       <div className="container">
         <header className="cart-header">
           <span className="back-arrow" onClick={() => navigate(-1)}>

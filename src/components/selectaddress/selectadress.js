@@ -30,6 +30,22 @@ const SelectAddress = () => {
   const totalToPay = itemTotal + DELIVERY_CHARGE + GST_CHARGE;
 
 
+  useEffect(() => {
+    const customerId = localStorage.getItem("customerId");
+    if (customerId) {
+      fetch(`http://localhost:5000/api/delivery-address/customer/${customerId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Fetched addresses:", data);
+          setAddresses(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching delivery addresses:", error);
+        });
+    }
+  }, []);
+  
+
 // useEffect(() => {
 //   const fetchAddresses = async () => {
     
@@ -47,10 +63,10 @@ const SelectAddress = () => {
 //   fetchAddresses();
 // }, []);
 
-useEffect(() => {
-  const storedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
-  setAddresses(storedAddresses);
-}, []);
+// useEffect(() => {
+//   const storedAddresses = JSON.parse(localStorage.getItem("addresses")) || [];
+//   setAddresses(storedAddresses);
+// }, []);
 
 
 
@@ -156,7 +172,7 @@ useEffect(() => {
       {/* Popup Modal */}
       {showPopup && (
         <div className="popup-overlay">
-          <div className="popup-content">
+          <div className="popup-content2">
             <button className="popup-close" onClick={() => setShowPopup(false)}>X</button>
             <div className="cart-items2">
 

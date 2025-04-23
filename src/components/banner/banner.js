@@ -34,31 +34,123 @@ const Banner = ({ onSearch, showSearchResults }) => {
 
   const { cartItems } = useCart();
 
+  const [cartCount, setCartCount] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [showMobileDropdown, setShowMobileDropdown] = useState(false);
+  const [banner, setBanner] = useState(null);
+  const [logo, setLogo] = useState(null);
 
-  const handleOpenModal = () => setShowModal(true);
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/images');
+        
+        // 🔍 Find banner and logo based on title
+        const bannerData = res.data.find(item => item.title.toLowerCase() === "banner image");
+        const logoData = res.data.find(item => item.title.toLowerCase() === "logo");
+
+        if (bannerData) setBanner(bannerData);
+        if (logoData) setLogo(logoData);
+
+      } catch (err) {
+        console.error("Failed to load images:", err);
+      }
+    };
+
+    fetchImages();
+  }, []);
+  
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    setIsLoggedIn(!!userId); // will be true if userId exists
+  }, []);
+
+  
+  useEffect(() => {
+    const fetchCartCount = async () => {
+      const cartId = localStorage.getItem("cartId");
+      if (!cartId) return;
+
+      try {
+        const res = await axios.get(`http://localhost:5000/api/cart/${cartId}`);
+        setCartCount(res.data.length); // set count based on number of items
+      } catch (err) {
+        console.error("Error fetching cart count:", err);
+      }
+    };
+
+    fetchCartCount();
+  }, []);
+
+  const handleOpenModal = () => {
+    setShowMobileDropdown(false); // hide dropdown
+    setShowModal(true); // open modal
+  };
+  
+  // const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => {
     setShowModal(false);
     setShowOTPModal(false);
     setPhoneNumber("");
     setOtp("");
   };
-  const handleContinue = () => {
-    if (phoneNumber.length === 10) {
-      setShowOTPModal(true);
-    } else {
-      alert("Please enter a valid 10-digit phone number.");
+
+  const handleContinue = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: phoneNumber }),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        alert(`Your OTP is: ${data.otp}`);
+        setShowOTPModal(true);
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
     }
   };
-  const handleVerifyOTP = () => {
-    if (otp.length === 6) {
-      alert("OTP Verified Successfully!");
-      handleCloseModal();
-    } else {
-      alert("Please enter a valid 6-digit OTP.");
+  
+  const handleVerifyOTP = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: phoneNumber, otp }),
+      });
+  
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("userId", data.userId);
+        setIsLoggedIn(true); // ✅ update login state
+        alert("Login successful!");
+        handleCloseModal();
+      }
+       else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error verifying OTP");
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    setShowMobileDropdown(false); // hide dropdown
+    setIsLoggedIn(false); // ✅ update state
+    navigate("/"); // or wherever you want after logout
+  };
 
+  
   // Search functionality
   const handleSearch = async (e) => {
     const query = e.target.value;
@@ -186,23 +278,40 @@ const Banner = ({ onSearch, showSearchResults }) => {
         <header className="mobileheader">
           {/* Left side - Logo */}
           <div className="mobilelogo">
-            <img src={logo} alt="Logo" />
-          </div>
+          {logo && (
+      <img
+        src={`http://localhost:5000/uploads/${logo.image}`}
+        alt={logo.title}
+       
+      />
+    )}        
+      </div>
 
           {/* Right side - Icons */}
           <div className="mobileicons">
             <img src={Search} alt="Search" className="mobimg1"onClick={() => navigate("/search", { state: { query: "" } })} />
             <img src={User} alt=" " className="mobimg1" />
-            <img src={Arrow} alt=" " className="mobimg2" onClick={handleOpenModal} />
+            <img src={Arrow} alt=" " className="mobimg2" onClick={() => setShowMobileDropdown(!showMobileDropdown)}
+ />
 
             <img src={Cart} alt=" " className="mobimg1" onClick={() => navigate("/cart")} />
-            <span  className="cartitemlength">{cartItems.length}</span>
-          </div>
+            {cartCount > 0 && <span className="cartitemlength">{cartCount}</span>}
+            </div>
+
+
+
         </header>
 
         <header className={`header ${showSearchResults ? 'hidden-on-search' : ''}`}>
           <div className="header-left">
-            <img src={logo} alt="Uthayam Protein" className="logo" />
+          {logo && (
+      <img
+        src={`http://localhost:5000/uploads/${logo.image}`}
+        alt={logo.title}
+       
+      />
+    )}        
+            {/* <img src={logo} alt="Uthayam Protein" className="logo" /> */}
             <h1 className="main-title">
               <span>Fresh, Safe, Quality</span><br />
               <span>Chicken Meat</span>
@@ -218,19 +327,45 @@ const Banner = ({ onSearch, showSearchResults }) => {
                 Search
               </span>
 
-              <span className="nav-item" onClick={handleOpenModal}>
+
+              {isLoggedIn ? (
+<span className="nav-item" onClick={() => setShowLogoutConfirm(true)}>
+    <img src={User} alt="" className="navimage" />
+    <p>Logout</p>
+    <img src={Arrow} className="navimage2" alt="" />
+  </span>
+) : (
+  <span className="nav-item" onClick={handleOpenModal}>
+    <img src={User} alt="" className="navimage" />
+    Login
+    <img src={Arrow} className="navimage2" alt="" />
+  </span>
+)}
+
+
+              {/* <span className="nav-item" onClick={handleOpenModal}>
                 <img src={User} alt="" className="navimage" />
                 Login
                 <img src={Arrow} className="navimage2" alt="" />
-              </span>
+              </span> */}
 
               <Link className="nav-item2" to="/cart" >
-                <img src={Cart} className="navimage" alt="" /><span className="cartitemlength">{cartItems.length}</span>
+                <img src={Cart} className="navimage" alt="" />
+                {cartCount > 0 && <span className="cartitemlength">{cartCount}</span>}
                 Cart
               </Link>
             </nav>
 
-            <img src={chickenImage} alt="Chicken Meat" className="chicken-img" />
+            {banner && (
+        <img
+          src={`http://localhost:5000/uploads/${banner.image}`}
+          alt={banner.title}
+          className="chicken-img"
+
+        />
+      )}
+            {/* <img src={chickenImage} alt="Chicken Meat" className="chicken-img" /> */}
+            
           </div>
         </header>
 
@@ -336,6 +471,44 @@ const Banner = ({ onSearch, showSearchResults }) => {
               </div>
             </div>
           )}
+
+{windowWidth <= 768 && showMobileDropdown && (
+  <div className="mobile-dropdown2">
+    {isLoggedIn ? (
+      <span onClick={handleLogout} className="dropdown-item">Logout</span>
+    ) : (
+      
+      <span onClick={handleOpenModal} className="dropdown-item">Login</span>
+    )}
+  </div>
+)}
+
+{showLogoutConfirm && (
+  <div className="logout-modal-overlay">
+    <div className="logout-modal-content">
+      <h2>Are you sure you want to logout?</h2>
+      <div className="logout-modal-actions">
+        <button
+          className="logout-confirm-btn"
+          onClick={() => {
+            localStorage.removeItem("userId");
+            setIsLoggedIn(false);
+            setShowLogoutConfirm(false);
+            navigate("/");
+          }}
+        >
+          Logout
+        </button>
+        <button
+          className="logout-cancel-btn"
+          onClick={() => setShowLogoutConfirm(false)}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
         </section>
 

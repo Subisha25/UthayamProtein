@@ -1,0 +1,94 @@
+.order-wrapper {
+  margin-left: 200px; /* Same as sidebar width */
+  padding: 20px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+  
+  .table-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #222;
+  }
+  
+  .styled-table {
+    width: 95%; /* Adjust the width as needed */
+    max-width: 100%;
+    margin: 0 auto; /* Centers the table horizontally */
+    border-collapse: separate;
+    border-spacing: 0 16px; /* Adds space between rows */
+    font-size: 16px;
+    min-width: 600px; /* Adjusted the min-width */
+    animation: fadeIn 1s ease-in-out;
+
+  }
+  
+  .styled-table thead tr {
+    background-color: #d90404;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  .styled-table th,
+  .styled-table td {
+    padding: 25px 12px;
+    text-align: center;
+  }
+  
+  .styled-table tbody tr {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    margin-bottom: 16px; /* Adds space between rows */
+    padding: 20px;
+  }
+  
+  .styled-table tbody tr:hover {
+    background-color: #f9f9f9;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+ 
+  
+  .action-icons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .icon {
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s;
+  }
+  
+  .edit-icon {
+    color: #4ade80; /* green */
+  }
+  
+  .delete-icon {
+    color: #f87171; /* red */
+  }
+  
+  .icon:hover {
+    transform: scale(1.2);
+  }
+  @media (max-width: 767px) {
+    .order-wrapper{
+      margin-left: 0;
+    }
+  }

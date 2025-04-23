@@ -33,16 +33,36 @@ const switches = [
   };
 
 
-  const handleAddToCart = (product) => {
-    const cartProduct = {
-      id: product.id,
-      image: `http://localhost:5000/uploads/${product.image}`,
+  const handleAddToCart = async (product) => {
+    const cartId = localStorage.getItem("cartId");
+  
+    const response = await axios.post("http://localhost:5000/api/cart/add", {
+      productId: product.id,
       title: product.title,
+      image: `http://localhost:5000/uploads/${product.image}`,
       originalRate: product.originalRate,
       oldRate: product.oldRate,
-    };
-    addToCartBtn(cartProduct);
+      cartId: cartId || null,
+    });
+  
+    if (response.data.cartId) {
+      localStorage.setItem("cartId", response.data.cartId);
+    }
+  
+    alert("Added to Cart!");
   };
+  
+
+  // const handleAddToCart = (product) => {
+  //   const cartProduct = {
+  //     id: product.id,
+  //     image: `http://localhost:5000/uploads/${product.image}`,
+  //     title: product.title,
+  //     originalRate: product.originalRate,
+  //     oldRate: product.oldRate,
+  //   };
+  //   addToCartBtn(cartProduct);
+  // };
 
 
 
@@ -85,10 +105,10 @@ const switches = [
     : (showAll ? products : products.slice(0, 6));
 
   // Add to cart functionality (stub - implement as needed)
-  const addToCart = (product) => {
-    console.log("Adding to cart:", product);
-    // Implement cart functionality here
-  };
+  // const addToCart = (product) => {
+  //   console.log("Adding to cart:", product);
+  //   // Implement cart functionality here
+  // };
 
   return (
     <>

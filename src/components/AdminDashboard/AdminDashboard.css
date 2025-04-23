@@ -1,9 +1,14 @@
 .admin-container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
+  margin-left: 200px;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  /* background: white; */
+
+  max-width: 1000px;
+  margin-right: auto;
+}
+
   
   .admin-title {
     text-align: center;
@@ -53,6 +58,7 @@
   }
     
   .admin-form input {
+    width: 93%;
     padding: 12px 15px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -71,6 +77,8 @@
     border: 1px solid #ccc;
     background-color: #f8f8f8;
     border-radius: 8px;
+    width: 96%;
+
   }
   
   .admin-image-preview {
@@ -341,3 +349,80 @@
   color: red;
 }
 
+
+
+
+/* Base styles (already included in your code) */
+
+/* Add responsive adjustments below */
+@media (max-width: 767px) {
+  .admin-title {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .admin-add-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    gap: 6px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .faplus {
+    font-size: 16px;
+  }
+
+  .admin-form {
+    width: 90%;
+    padding: 20px;
+    gap: 25px;
+  }
+
+  .form-wrapper {
+    padding: 10px;
+  }
+
+  .admin-form input {
+    width: 90%;
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .admin-form input[type="file"] {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .admin-submit-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .admin-table thead {
+    font-size: 14px;
+  }
+
+  .admin-table {
+    overflow-x: auto;
+    display: block;
+  }
+
+  .admin-table table {
+    width: 700px;
+  }
+
+  .admin-image-preview {
+    width: 100%;
+    height: auto;
+  }
+  .admin-container{
+    margin-left: 0;
+  }
+}

@@ -320,6 +320,18 @@ line-height: 10px;
 .cartpay-now-btn3{
     display: none;
 }
+.empty-cart-message2{
+    color: green;
+    font-size: 20px;
+    background-color: rgb(165, 243, 165);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.empty-cart-message{
+    display: none;
+}
+
 .cartpay-now-btn2 {
     display: block;
     background: #DE0000;
@@ -353,6 +365,10 @@ line-height: 10px;
         width: 100%; 
       }
     .cartpay-now-btn2{
+        display: none;
+    }
+
+    .empty-cart-message{
         display: none;
     }
     .cart-container2 {

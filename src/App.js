@@ -21,6 +21,11 @@ import AdminProductDashboard from './components/AdminDashboard/AdminDashboard';
 import ScrollTop from './components/AutoScroll';
 import BankSearch from './components/payment/netbank';
 import DebitCardForm from './components/payment/DebitCardForm';
+import ImageDashboard from './components/AdminDashboard/ImageDashboard';
+import DashboardContent from './components/AdminDashboard/DashboardContent';
+import DashboardLayout from './components/AdminDashboard/DashboardLayout';
+import OrderList from './components/AdminDashboard/orderlist';
+import ProtectedRoute from './components/protectedRoute';
 
 function App() {
   const location = useLocation();
@@ -48,7 +53,30 @@ function App() {
         <Route path="/admindashboard" element={<AdminProductDashboard />} />
         <Route path="/netbank" element={<BankSearch />} />
         <Route path="/debitcard" element={<DebitCardForm />} />
+        <Route path="/imagedashboard" element={<ImageDashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<DashboardContent />} /> {/* Default page */}
 
+          <Route path="orderlist" element={<OrderList />} />
+          <Route path="admindashboard" element={<AdminProductDashboard />} />
+          <Route path="imagedashboard" element={<ImageDashboard />} />
+
+        </Route>
+        <Route
+          path="/dashboard/orderlist"
+          element={
+            <ProtectedRoute>
+              <OrderList />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       {!excludedRoutes.includes(location.pathname) && <Footer />}

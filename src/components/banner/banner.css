@@ -8,6 +8,90 @@
   display: none;
 }
 
+.mobile-dropdown {
+  position: absolute;
+  top: 70px; /* Adjust based on your header */
+  right: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  z-index: 1000;
+  padding: 10px;
+  width: 120px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-dropdown2 {
+  position: absolute;
+  /* top: -70px; */
+  top: -530px;
+  right: -12px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  z-index: 100;
+  padding: 10px;
+  width: 120px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+  display: block;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: #f0f0f0;
+}
+
+.logout-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.logout-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+}
+
+.logout-modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.logout-confirm-btn,
+.logout-cancel-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-confirm-btn {
+  background-color: red;
+  color: white;
+}
+
+.logout-cancel-btn {
+  background-color: gray;
+  color: white;
+}
+
 .container {
   position: relative;
   overflow-x: hidden;
@@ -225,7 +309,9 @@
   z-index: 1000;
   transition: opacity 0.3s ease-in-out;
 }
-
+.nav-item p{
+  color: #e30f0f;
+}
 /* Modal container */
 .modal-content1 {
   background: white;
@@ -349,8 +435,19 @@
   margin-top: 10px;
   text-align: center;
 }
+
 /* Mobile responsiveness for search */
 @media (max-width: 768px) {
+  .main-title {
+    margin-top: 0;
+    padding: 10px;
+    font-size: clamp(30px, 5vw, 65px);
+    font-weight: bold;
+    color: #DE0000;
+    line-height: 1.1;
+    margin-bottom: 0 !important;
+    padding-bottom: 0;
+  }
   .search-box{
     height: 40px;
     padding: 0px 10px;
@@ -388,6 +485,7 @@
 .navimage {
   cursor: pointer; /* Ensures cursor changes to pointer */
 }
+
 
 .nav-item {
   cursor: pointer;
@@ -480,6 +578,12 @@
 
 /* Media Queries for different screen sizes */
 
+@media (max-width: 1100px) {
+  .chicken-img{
+    width: 450px;
+  }
+}
+
 /* Tablets */
 @media (max-width: 992px) {
   .header {
@@ -491,6 +595,10 @@
     width: 40%;
   }
   
+  .chicken-img{
+    width: 300px;
+
+  }
   .categories {
     gap: 30px;
     padding: 15px;
@@ -499,7 +607,7 @@
 
 /* Mobile Landscape */
 @media (max-width: 768px) {
-  .header {
+  .nav {
    display: none;
 }
   .mobileheader {

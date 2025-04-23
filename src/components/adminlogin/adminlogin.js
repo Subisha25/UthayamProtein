@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./adminlogin.css";
+import "../adminlogin/adminlogin.css";
 import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
@@ -24,7 +24,9 @@ const AdminLogin = () => {
       console.log("response.ok:", response.ok);
       console.log("data:", data);
       if (email === "admin@gmail.com" && password === "admin123") {
-        navigate("/admindashboard");
+        localStorage.setItem("isAdmin", "true"); // ✅ Set login flag
+
+        navigate("/dashboard");
       }
        else {
         setMessage(data.message);
@@ -34,11 +36,10 @@ const AdminLogin = () => {
       setMessage("An error occurred on the platform");
     }
   };
-
   return (
   
     <div className="login-container">
-      <h2>Admin Login</h2>
+      <h2>Admin Login</h2> 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input
@@ -59,8 +60,8 @@ const AdminLogin = () => {
             required
           />
         </div>
-
-        <input type="submit" value="Login" />
+<button  className="admin-login">Login</button>
+        {/* <input type="submit" value="Login" className="admin-login"/> */}
         {message && <div className="message">{message}</div>}
       </form>
     </div>

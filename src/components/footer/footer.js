@@ -8,9 +8,29 @@ import YouTube from '../assets/mdi_youtube.png';
 import FaceBook from '../assets/ic_baseline-facebook.png';
 import Twitter from '../assets/prime_twitter.png';
 import Instagram from '../assets/mdi_instagram.png';
+import axios from 'axios';
 
 const Footer = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [logo, setLogo] = useState(null);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/images');
+
+        const logoData = res.data.find(item => item.title.toLowerCase() === "logo");
+
+        if (logoData) setLogo(logoData);
+
+      } catch (err) {
+        console.error("Failed to load images:", err);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,16 +46,23 @@ const Footer = () => {
       <div className="footer-container">
         {/* First Column - Get In Touch */}
         <div className="footer-section">
-          <h2 className="footer-title">Get In {!isMobile && <br/>} Touch</h2>
+          <h2 className="footer-title">Get In {!isMobile && <br />} Touch</h2>
         </div>
 
         {/* Second Column - Logo & Social Media */}
         <div className="footer-middle">
           <div className="logo-container">
-            <img src={FooterLogo} alt="Uthayam Protein" className="footer-logo" />
+            {logo && (
+              <img
+                src={`http://localhost:5000/uploads/${logo.image}`}
+                alt={logo.title}
+                className="footer-logo"
+              />
+            )}
+            {/* <img src={FooterLogo} alt="Uthayam Protein" className="footer-logo" /> */}
           </div>
           <div className="social-icons">
-            <a href="#" className="social-icon" aria-label="Facebook"> 
+            <a href="#" className="social-icon" aria-label="Facebook">
               <img src={FaceBook} alt="Facebook" />
             </a>
             <a href="#" className="social-icon" aria-label="Instagram">

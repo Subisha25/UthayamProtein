@@ -420,15 +420,21 @@ const ProductDetails = () => {
 
 
   const handleBuyNowClick = () => {
-    const userToken = localStorage.getItem("userToken");
+    const userToken = localStorage.getItem("userId");
     if (userToken) {
-      // If already logged in
       navigate("/orderdetails", { state: { singleProduct: selectedProduct } });
     } else {
-      // Else open phone input modal
       setShowModal(true);
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    alert("Logged out successfully");
+    navigate("/"); // Or any page
+  };
+  
+  
   
   const isAvailable = selectedProduct.originalRate > 0;
   const price = `stock-status text-sm font-medium ${isAvailable ? 'text-green-600' : 'text-red-600'}`;
@@ -436,38 +442,85 @@ const ProductDetails = () => {
     setShowModal(false);
   };
 
-  const handleContinue = () => {
-    if (phoneNumber.length === 10) {
-      const fakeOtp = Math.floor(100000 + Math.random() * 900000).toString();
-      alert ("Fake OTP (for demo): " + fakeOtp); // show OTP in console
-      console.log ("Fake OTP (for demo):", fakeOtp); // show OTP in console
-      localStorage.setItem("otp", fakeOtp); // store it for verifying later
-      localStorage.setItem("tempPhone", phoneNumber); // optional
-      setShowOTPModal(true);
-    } else {
-      alert("Please enter a valid 10-digit phone number.");
+
+  const handleContinue = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: phoneNumber }),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        alert(`Your OTP is: ${data.otp}`);
+        setShowOTPModal(true);
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
     }
   };
+  
+  const handleVerifyOTP = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: phoneNumber, otp }),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        localStorage.setItem("userId", data.userId);
+        alert("Login successful!");
+        handleCloseModal();
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error verifying OTP");
+    }
+  };
+  
+
+  // const handleContinue = () => {
+  //   if (phoneNumber.length === 10) {
+  //     const fakeOtp = Math.floor(100000 + Math.random() * 900000).toString();
+  //     alert ("Fake OTP (for demo): " + fakeOtp); // show OTP in console
+  //     console.log ("Fake OTP (for demo):", fakeOtp); // show OTP in console
+  //     localStorage.setItem("otp", fakeOtp); // store it for verifying later
+  //     localStorage.setItem("tempPhone", phoneNumber); // optional
+  //     setShowOTPModal(true);
+  //   } else {
+  //     alert("Please enter a valid 10-digit phone number.");
+  //   }
+  // };
 
   
-  const handleVerifyOTP = () => {
-    const storedOtp = localStorage.getItem("otp");
-    if (otp === storedOtp) {
-      // Save a fake token/id to identify the user
-      localStorage.setItem("userToken", JSON.stringify({ phone: phoneNumber, id: Date.now() }));
+  // const handleVerifyOTP = () => {
+  //   const storedOtp = localStorage.getItem("otp");
+  //   if (otp === storedOtp) {
+  //     // Save a fake token/id to identify the user
+  //     localStorage.setItem("userToken", JSON.stringify({ phone: phoneNumber, id: Date.now() }));
   
-      // Cleanup temp data
-      localStorage.removeItem("otp");
-      localStorage.removeItem("tempPhone");
+  //     // Cleanup temp data
+  //     localStorage.removeItem("otp");
+  //     localStorage.removeItem("tempPhone");
   
-      setShowModal(false);
-      setShowOTPModal(false);
+  //     setShowModal(false);
+  //     setShowOTPModal(false);
   
-      navigate("/orderdetails", { state: { singleProduct: selectedProduct } });
-    } else {
-      alert("Incorrect OTP. Try again.");
-    }
-  };
+  //     navigate("/orderdetails", { state: { singleProduct: selectedProduct } });
+  //   } else {
+  //     alert("Incorrect OTP. Try again.");
+  //   }
+  // };
   
 
   // const handleContinue = () => {
@@ -502,6 +555,13 @@ const ProductDetails = () => {
   return (
     <>
       <Navbar />
+      
+      {/* {localStorage.getItem("userId") && (
+  <button onClick={handleLogout} className="px-4 py-2 bg-red-500 text-white rounded">
+    Logout
+  </button>
+)} */}
+
       <div className="product-container">
         {/* Product Image Gallery */}
         <div className="image-gallery-wrapper">
