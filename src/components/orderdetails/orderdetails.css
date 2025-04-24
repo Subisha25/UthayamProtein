@@ -344,6 +344,8 @@ line-height: 10px;
     width: 100%; 
   }
 
+  
+
   @media (max-width: 768px) {
     .left2{
         width: 100%;

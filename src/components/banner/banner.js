@@ -308,6 +308,7 @@ const Banner = ({ onSearch, showSearchResults }) => {
       <img
         src={`http://localhost:5000/uploads/${logo.image}`}
         alt={logo.title}
+        className="logo"
        
       />
     )}        

@@ -438,6 +438,7 @@ const ProductDetails = () => {
   
   const isAvailable = selectedProduct.originalRate > 0;
   const price = `stock-status text-sm font-medium ${isAvailable ? 'text-green-600' : 'text-red-600'}`;
+ 
   const handleCloseModal = () => {
     setShowModal(false);
   };

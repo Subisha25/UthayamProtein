@@ -158,7 +158,10 @@ const Cart = () => {
   const [fetchedCartItems, setFetchedCartItems] = useState([]);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [itemToRemove, setItemToRemove] = useState(null);
-
+  const [showModal, setShowModal] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [showOTPModal, setShowOTPModal] = useState(false);
+  const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const DELIVERY_CHARGE = 30;
   const GST_CHARGE = 50;
@@ -205,8 +208,81 @@ const Cart = () => {
     } catch (err) {
       console.error("Error removing item", err);
     }
+  
+
   };
 
+
+  const handleContinueClick = () => {
+    console.log("Continue button clicked");
+  
+    const userId = localStorage.getItem("userId");
+    const customerId = localStorage.getItem("customerId");
+  
+    if (!userId) {
+      console.log("No userId found");
+      setShowModal(true); // Show login modal
+    } else if (!customerId) {
+      // userId iruku but customerId illa → go to delivery address setup
+      navigate("/deliveryaddress", { state: { itemsToShow: fetchedCartItems } });
+    } else {
+      // Both userId and customerId iruku → go to select address
+      navigate("/selectaddress", { state: { itemsToShow: fetchedCartItems } });
+    }
+  };
+  
+  
+
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleContinue = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: phoneNumber }),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        alert(`Your OTP is: ${data.otp}`);
+        setShowOTPModal(true);
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
+    }
+  };
+  
+  const handleVerifyOTP = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: phoneNumber, otp }),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        localStorage.setItem("userId", data.userId);
+        alert("Login successful!");
+        handleCloseModal();
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error verifying OTP");
+    }
+  };
+  
 
   const handleCancelRemove = () => {
     setIsPopupVisible(false); // Hide the popup
@@ -250,7 +326,21 @@ const Cart = () => {
               </div>
             ))}
           </div>
+
           {fetchedCartItems.length > 0 ? (
+            <button
+              className="cartpay-now-btn2"
+              onClick={handleContinueClick}
+              
+            >
+              Continue to Select Delivery address
+            </button>
+          ) : (
+            <p className="empty-cart-message2">No items in cart page</p>
+          )}
+
+
+          {/* {fetchedCartItems.length > 0 ? (
             <button
               className="cartpay-now-btn2"
               onClick={() =>
@@ -261,7 +351,7 @@ const Cart = () => {
             </button>
           ) : (
             <p className="empty-cart-message2">No items in cart page</p>
-          )}
+          )} */}
 
           {/* <button className="cartpay-now-btn2" onClick={() => navigate("/selectaddress", { state: { itemsToShow: fetchedCartItems } })}>Continue to Select Delivery address</button> */}
         </div>
@@ -296,9 +386,10 @@ const Cart = () => {
         {fetchedCartItems.length > 0 ? (
           <button
             className="cartpay-now-btn3"
-            onClick={() =>
-              navigate("/selectaddress", { state: { itemsToShow: fetchedCartItems } })
-            }
+            onClick={handleContinueClick}
+            // onClick={() =>
+            //   navigate("/selectaddress", { state: { itemsToShow: fetchedCartItems } })
+            // }
           >
             Continue to Select Delivery address
           </button>
@@ -321,6 +412,121 @@ const Cart = () => {
           </div>
         </div>
       )}
+   {showModal && (
+          <div className="modal-overlay1">
+            <div className="modal-content1">
+              <button className="modal-close1" onClick={handleCloseModal}>✖</button>
+
+              {!showOTPModal ? (
+                <>
+                  <h2 className="modal-title1">Login or Signup to Continue Shopping</h2>
+                  <div className="modal-input-wrapper1">
+                    <label className="modal-label1">PHONE NUMBER</label>
+                    <div className="modal-input-container1">
+                      <span className="modal-country-code1">IN +91</span>
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        className="modal-input1"
+                        maxLength="10"
+                        value={phoneNumber}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (/^\d*$/.test(value)) {
+                            setPhoneNumber(value);
+                          }
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <button
+                    className="modal-button1"
+                    onClick={handleContinue}
+                    disabled={phoneNumber.length !== 10}
+                    style={{ opacity: phoneNumber.length === 10 ? 1 : 0.5 }}
+                  >
+                    CONTINUE
+                  </button>
+
+                  <p className="modal-footer1">By clicking, I accept the Terms and Conditions & Privacy Policy</p>
+                </>
+              ) : (
+                <>
+                  <p className="modal-text1">Enter OTP sent to <strong>{phoneNumber}</strong></p>
+                  <button className="modal-change-number1" onClick={() => setShowOTPModal(false)}>CHANGE NUMBER</button>
+                  <div className="modal-otp-input-container1">
+                    <input
+                      type="text"
+                      className="modal-input1"
+                      maxLength="6"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                    />
+                  </div>
+                  <button
+                    className="modal-button1"
+                    onClick={handleVerifyOTP}
+                    disabled={otp.length !== 6}
+                    style={{ opacity: otp.length === 6 ? 1 : 0.5 }}
+                  >
+                    VERIFY OTP
+                  </button>
+
+                  <p className="modal-footer1">By clicking, I accept the Terms and Conditions & Privacy Policy</p>
+
+                </>
+              )}
+            </div>
+          </div>
+        )}
+      
+{showModal && (
+            <div className="modal-overlay">
+              {!showOTPModal ? (
+                <div className="modal-content">
+                  <button className="modal-close" onClick={handleCloseModal}>✖</button>
+                  <h2 className="modal-title">Login or Signup to Continue Shopping</h2>
+
+                  <div className="modal-input-wrapper">
+                    <label className="modal-label">PHONE NUMBER</label>
+                    <div className="modal-input-container">
+                      <span className="modal-country-code">IN +91</span>
+                      <input
+                        type="text"
+                        className="modal-input"
+                        maxLength="10"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <button className="modal-button" onClick={handleContinue}>CONTINUE</button>
+                  <p className="modal-footer">By clicking, I accept the Terms and Conditions & Privacy Policy</p>
+                </div>
+              ) : (
+                <div className="modal-content">
+                  <button className="modal-close" onClick={handleCloseModal}>✖</button>
+                  <p className="modal-text">Enter OTP sent to <strong>{phoneNumber}</strong></p>
+
+                  <button className="modal-change-number" onClick={() => setShowOTPModal(false)}>CHANGE NUMBER</button>
+
+                  <div className="modal-otp-input-container">
+                    <input
+                      type="text"
+                      className="modal-input"
+                      maxLength="6"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                    />
+                  </div>
+
+                  <button className="modal-button" onClick={handleVerifyOTP}>VERIFY OTP</button>
+                </div>
+              )}
+            </div>
+          )}
     </>
   );
 };

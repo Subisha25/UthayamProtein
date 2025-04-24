@@ -125,7 +125,7 @@ const DeliveryAddress = () => {
   return (
     <div className="cart-container">
 
-      <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded">Logout</button>
+      {/* <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded">Logout</button> */}
      
       <div className="container">
         <header className="cart-header">
