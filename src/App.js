@@ -26,10 +26,13 @@ import DashboardContent from './components/AdminDashboard/DashboardContent';
 import DashboardLayout from './components/AdminDashboard/DashboardLayout';
 import OrderList from './components/AdminDashboard/orderlist';
 import ProtectedRoute from './components/protectedRoute';
+import CategoryList from './components/AdminDashboard/categorylist';
+import StoreInformation from './components/AdminDashboard/storeinformation';
+import CustomerList from './components/AdminDashboard/CustomerList';
 
 function App() {
   const location = useLocation();
-  const excludedRoutes = ['/search', '/adminlogin', '/admindashboard', '/orderconfirmation'];
+  const excludedRoutes = ['/search', '/adminlogin', '/admindashboard', '/orderconfirmation','/dashboard','/dashboard/orderlist', '/dashboard/admindashboard','/dashboard/imagedashboard', "/dashboard/categorylist"];
 
   return (
     <div>
@@ -50,7 +53,7 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/admindashboard" element={<AdminProductDashboard />} />
+        {/* <Route path="/admindashboard" element={<AdminProductDashboard />} /> */}
         <Route path="/netbank" element={<BankSearch />} />
         <Route path="/debitcard" element={<DebitCardForm />} />
         <Route path="/imagedashboard" element={<ImageDashboard />} />
@@ -67,6 +70,10 @@ function App() {
           <Route path="orderlist" element={<OrderList />} />
           <Route path="admindashboard" element={<AdminProductDashboard />} />
           <Route path="imagedashboard" element={<ImageDashboard />} />
+          <Route path="categorylist" element={<CategoryList />} />
+          <Route path="storeinformation" element={<StoreInformation />} />
+          <Route path="customerlist" element={<CustomerList />} />
+
 
         </Route>
         <Route

@@ -1,0 +1,133 @@
+.store-info-container {
+    margin-left: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  .store-info-card {
+    background-color: #fff;
+    width: 100%;
+    max-width: 800px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  .store-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .store-info-header-actions {
+    display: flex;
+    gap: 15px;
+  }
+
+  /* .store-info-header {
+    text-align: center;
+    margin-bottom: 30px;
+  } */
+  
+
+  .edit-button, .delete-button {
+    /* background-color: #3498db; */
+    color: rgb(12, 90, 59);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+  }
+  
+
+  .delete-button{
+    color: red;
+  }
+  .edit-button:hover, .delete-button:hover {
+    background-color: #2980b9;
+  }
+  .store-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+  }
+  
+  .store-name {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .store-details {
+    margin-top: 20px;
+  }
+  
+  .detail-items{
+    margin-top: 50px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .detail-title2 {
+    padding-top: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  .detail-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .detail-info {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  @media screen and (max-width: 768px) {
+
+    .store-info-container {
+      margin-left: 0px;
+    }
+
+    .store-info-card {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    .store-name {
+      font-size: 28px;
+    }
+  
+    .detail-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .detail-title {
+      margin-bottom: 5px;
+    }
+  }
+  

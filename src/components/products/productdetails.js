@@ -33,7 +33,7 @@
 //     addToCartBtn(cartProduct);
 //   };
 
-  
+
 //   const [selectedImage, setSelectedImage] = useState(
 //     `http://localhost:5000/uploads/${selectedProduct?.image}`
 //   );
@@ -78,7 +78,7 @@
 //   };
 
 
-  
+
 //   // ✅ Verify OTP Handler (Replaces handleVerifyOTP)
 //   const handleVerifyOTP = async () => {
 //     if (otp.length !== 6) {
@@ -380,6 +380,7 @@ import Recommendedproducts from "./recommendedproducts";
 import "../products/productdetails.css";
 import { useCart } from '../context/cartContext';
 import { useEffect } from "react";
+import axios from "axios";
 
 
 const ProductDetails = () => {
@@ -394,18 +395,27 @@ const ProductDetails = () => {
   const [selectedIndex, setSelectedIndex] = useState(0); // default first thumb
   const { addToCartBtn } = useCart(); // Use context to access addToCart function
 
-  const handleAddToCart = () => {
-    const cartProduct = {
-      id: selectedProduct.id,
-      image: `http://localhost:5000/uploads/${selectedProduct.image}`,
-      title: selectedProduct.title,
-      originalRate: selectedProduct.originalRate,
-      oldRate: selectedProduct.oldRate,
-    };
-    addToCartBtn(cartProduct);
+  const handleAddToCart = async (product) => {
+    const cartId = localStorage.getItem("cartId");
+
+    const response = await axios.post("http://localhost:5000/api/cart/add", {
+      productId: product.id,
+      title: product.title,
+      image: `http://localhost:5000/uploads/${product.image}`,
+      originalRate: product.originalRate,
+      oldRate: product.oldRate,
+      cartId: cartId || null,
+    });
+
+    if (response.data.cartId) {
+      localStorage.setItem("cartId", response.data.cartId);
+    }
+
+    alert("Added to Cart!");
+    navigate("/cart")
   };
 
-  
+
   const [selectedImage, setSelectedImage] = useState(
     `http://localhost:5000/uploads/${selectedProduct?.image}`
   );
@@ -433,12 +443,12 @@ const ProductDetails = () => {
     alert("Logged out successfully");
     navigate("/"); // Or any page
   };
-  
-  
-  
+
+
+
   const isAvailable = selectedProduct.originalRate > 0;
   const price = `stock-status text-sm font-medium ${isAvailable ? 'text-green-600' : 'text-red-600'}`;
- 
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -451,9 +461,9 @@ const ProductDetails = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: phoneNumber }),
       });
-  
+
       const data = await res.json();
-  
+
       if (res.ok) {
         alert(`Your OTP is: ${data.otp}`);
         setShowOTPModal(true);
@@ -465,7 +475,7 @@ const ProductDetails = () => {
       alert("Something went wrong");
     }
   };
-  
+
   const handleVerifyOTP = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/auth/verify-otp", {
@@ -473,9 +483,9 @@ const ProductDetails = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: phoneNumber, otp }),
       });
-  
+
       const data = await res.json();
-  
+
       if (res.ok) {
         localStorage.setItem("userId", data.userId);
         alert("Login successful!");
@@ -488,7 +498,7 @@ const ProductDetails = () => {
       alert("Error verifying OTP");
     }
   };
-  
+
 
   // const handleContinue = () => {
   //   if (phoneNumber.length === 10) {
@@ -503,26 +513,26 @@ const ProductDetails = () => {
   //   }
   // };
 
-  
+
   // const handleVerifyOTP = () => {
   //   const storedOtp = localStorage.getItem("otp");
   //   if (otp === storedOtp) {
   //     // Save a fake token/id to identify the user
   //     localStorage.setItem("userToken", JSON.stringify({ phone: phoneNumber, id: Date.now() }));
-  
+
   //     // Cleanup temp data
   //     localStorage.removeItem("otp");
   //     localStorage.removeItem("tempPhone");
-  
+
   //     setShowModal(false);
   //     setShowOTPModal(false);
-  
+
   //     navigate("/orderdetails", { state: { singleProduct: selectedProduct } });
   //   } else {
   //     alert("Incorrect OTP. Try again.");
   //   }
   // };
-  
+
 
   // const handleContinue = () => {
   //   if (phoneNumber.length === 10) {
@@ -556,7 +566,7 @@ const ProductDetails = () => {
   return (
     <>
       <Navbar />
-      
+
       {/* {localStorage.getItem("userId") && (
   <button onClick={handleLogout} className="px-4 py-2 bg-red-500 text-white rounded">
     Logout
@@ -578,28 +588,28 @@ const ProductDetails = () => {
 
             {/* Thumbnails (Aligned to the Left) */}
             <div className="thumbnail-container">
-  {thumbnails.map((thumb, index) => (
-    <img
-      key={index}
-      src={thumb}
-      alt={`thumb-${index}`}
-      className={`thumbnail ${selectedIndex === index ? "active-thumbnail" : ""}`}
-      onClick={() => {
-        setSelectedImage(thumb);
-        setSelectedIndex(index);
-      }}
-    />
-  ))}
-</div>
+              {thumbnails.map((thumb, index) => (
+                <img
+                  key={index}
+                  src={thumb}
+                  alt={`thumb-${index}`}
+                  className={`thumbnail ${selectedIndex === index ? "active-thumbnail" : ""}`}
+                  onClick={() => {
+                    setSelectedImage(thumb);
+                    setSelectedIndex(index);
+                  }}
+                />
+              ))}
+            </div>
 
           </div>
           {/* Add to Cart & Buy Now Buttons */}
           {isAvailable && (
-  <div className="button-container">
-    <button className="add-to-cart-btn">ADD TO CART</button>
-    <button className="buy-now-btn" onClick={handleBuyNowClick}>BUY IT NOW</button>
-  </div>
-)}
+            <div className="button-container">
+              <button className="add-to-cart-btn" onClick={() => handleAddToCart(selectedProduct)}>ADD TO CART</button>
+              <button className="buy-now-btn" onClick={handleBuyNowClick}>BUY IT NOW</button>
+            </div>
+          )}
 
 
         </div>
@@ -617,8 +627,8 @@ const ProductDetails = () => {
           </div>
           {selectedProduct.tag && <div className="offer-tag">Limited time Offer</div>}
           <p className={price}>
-  {isAvailable ? 'In Stock' : 'Out of Stock'}
-</p>
+            {isAvailable ? 'In Stock' : 'Out of Stock'}
+          </p>
           <label className="dropdown-label">Pieces</label>
           <select className="dropdown">
             <option>5 PCS</option>
@@ -633,13 +643,13 @@ const ProductDetails = () => {
             <option>Marination</option>
           </select>
           {/* Mobile Buttons (below dropdowns) */}
-         {/* Show mobile buttons only if product is in stock */}
-{isAvailable && (
-  <div className="mobile-button-container">
-    <button className="add-to-cart-btn">ADD TO CART</button>
-    <button className="buy-now-btn" onClick={handleBuyNowClick}>BUY IT NOW</button>
-  </div>
-)}
+          {/* Show mobile buttons only if product is in stock */}
+          {isAvailable && (
+            <div className="mobile-button-container">
+              <button className="add-to-cart-btn" onClick={() => handleAddToCart(selectedProduct)}>ADD TO CART</button>
+              <button className="buy-now-btn" onClick={handleBuyNowClick}>BUY IT NOW</button>
+            </div>
+          )}
 
           {showModal && (
             <div className="modal-overlay">

@@ -28,9 +28,10 @@
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
+  
 }
 
 .logout-button:hover {
@@ -40,7 +41,161 @@
   .page-content {
     padding: 12px;
   }
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 10px 20px; */
+    background-color: var(--header-bg);
+    color: white;
+    position: relative;
+  }
   
+  .theme-selector {
+    position: relative;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .theme-selector:hover .theme-dropdown {
+    display: block;
+  }
+  
+  .theme-dropdown {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: white;
+    color: black;
+    /* border: 1px solid #ccc; */
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    display: none;
+    z-index: 999;
+    width: 120px;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  
+  .theme-dropdown li {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .theme-dropdown li:hover {
+    background-color: #eee;
+  }
+  
+  /* Theme styles */
+  .theme-lightblue {
+    --header-bg: #5bc0de;
+  }
+  .theme-dark {
+    --header-bg: #343a40;
+  }
+  .theme-blue {
+    --header-bg: #007bff;
+  }
+  .theme-red {
+    --header-bg: #d90404;
+  }
+  .theme-pink {
+    --header-bg: #e83e8c;
+  }
+  
+  .admin-profile {
+    position: relative;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+  
+  .admin-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+  }
+  
+  .admin-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 200px;
+    z-index: 100;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .admin-dropdown-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 10px;
+    object-fit: cover;
+  }
+  
+  .admin-name {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 5px;
+    color: black;
+  }
+  
+  .admin-role {
+    font-size: 0.85rem;
+    color: gray;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .setting-btn, .logout-btn {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+  }
+  
+  .setting-btn:hover, .logout-btn:hover {
+    background-color: #e0e0e0;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .search-bar input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-button {
+    background: white;
+    border: none;
+    padding: 6px 10px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
   @media (max-width: 767px) {
     .admin-layout {
       flex-direction: column;
@@ -56,18 +211,94 @@
       height: auto;
     }
   
-    .logout-button {
-      align-self: center;
-      font-size: 14px;
-      padding: 6px 12px;
+    .theme-selector {
+      font-size: 16px;
     }
   
-    .main-content {
-      padding: 0;
+    .theme-dropdown {
+      top: 40px;
+      width: 100px;
+      font-size: 16px;
+      left: 10px;
+    }
+  
+    .admin-profile {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  
+    .admin-dropdown {
+      /* width: 50%; */
+      /* right: auto; */
+      margin-right: 20px;
+      /* left: 0; */
+    }
+  
+    .search-bar {
+      width: 100%;
+      /* flex-direction: column; */
+      align-items: stretch;
+      gap: 8px;
+    }
+  
+    .search-bar input {
+      width: 50%;
+    }
+  
+    .search-button {
+      width: 20%;
     }
   
     .page-content {
-      padding: 12px;
+      padding: 10px;
     }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 80%;
+      background-color: #d90404;
+      z-index: 1000; /* higher than header */
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+    }
+  
+    .sidebar.open {
+      transform: translateX(0);
+    }
+  
+    .admin-header {
+      position: relative;
+      z-index: 500; /* lower than sidebar */
+    }
+  
+    .menu-btn {
+      display: block;
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      z-index: 1100; /* so it's clickable above everything */
+    }
+  
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 1100;
+    }
+  
+    .admin-layout {
+      position: relative;
+    }
+  
+    .admin-layout {
+      position: relative;
+    }
+  
+    .sidebar {
+      width: 80%; /* Responsive width */
+    }
+  
   }
   

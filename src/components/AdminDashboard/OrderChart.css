@@ -1,0 +1,25 @@
+.order-chart-container {
+    margin-left: 230px;
+    width: 75%;
+    height: 400px;
+    background: linear-gradient(to right, #f0f2f5, #ffffff);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .order-chart-container:hover {
+    transform: scale(1.01);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .chart-title {
+    text-align: center;
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  

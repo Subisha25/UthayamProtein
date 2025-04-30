@@ -86,8 +86,8 @@ const AdminProductDashboard = () => {
   };
 
   const handleDelete = async (id) => {
-    const confirm = window.confirm("Are you sure you want to delete this product?");
-    if (!confirm) return;
+    // const confirm = window.confirm("Are you sure you want to delete this product?");
+    // if (!confirm) return;
 
     const res = await fetch(`http://localhost:5000/api/products/${id}`, {
       method: "DELETE",

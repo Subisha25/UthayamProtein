@@ -60,6 +60,23 @@
 
 
 
+/* Theme-specific backgrounds */
+.sidebar-lightblue {
+  background-color: #5bc0de;
+}
+.sidebar-dark {
+  background-color: #343a40;
+}
+.sidebar-blue {
+  background-color: #007bff;
+}
+.sidebar-red {
+  background-color:  #d90404;
+  color: #333;
+}
+.sidebar-pink {
+  background-color: #e83e8c;
+}
 
 
 /* Hide on mobile by default */
