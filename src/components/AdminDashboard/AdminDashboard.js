@@ -5,7 +5,7 @@ import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { FaPlus } from "react-icons/fa6";
-
+import Breadcrumb from "./Breadcrumb";
 
 const AdminProductDashboard = () => {
 
@@ -97,6 +97,8 @@ const AdminProductDashboard = () => {
 
   return (
     <div className="admin-container">
+                  <Breadcrumb current="Product List" />
+
       <h1 className="admin-title">Admin Dashboard - Products</h1>
       <button className="admin-add-btn" onClick={() => setShowForm(!showForm)}>
         <FaPlus className="faplus"/> Add New Product

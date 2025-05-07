@@ -5,14 +5,21 @@
   overflow-x: auto;
 }
 
-  
-  .table-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #222;
-  }
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-left: 25px;
+}
+
+.table-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+
   
   .styled-table {
     width: 95%; /* Adjust the width as needed */
@@ -87,8 +94,46 @@
   .icon:hover {
     transform: scale(1.2);
   }
+
+
+
+  .breadcrumb {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 16px;
+    text-align: right; /* ensures it's left-aligned */
+    padding-left: 0px; /* add some spacing from the left */
+    margin-right: 30px;
+  }
+  
+  .breadcrumb a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .breadcrumb a:hover {
+    text-decoration: none;
+  }
+  
   @media (max-width: 767px) {
     .order-wrapper{
       margin-left: 0;
+    }
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      margin-left: 0;
+    }
+    
+    .table-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    .breadcrumb {
+      font-size: 14px;
+      color: #666;
     }
   }

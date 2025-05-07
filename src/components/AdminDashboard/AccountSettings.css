@@ -1,0 +1,183 @@
+.account-card {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  margin-left: 250px;
+}
+
+.account-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.form-left {
+  flex: 1 1 60%;
+}
+
+.form-right {
+  flex: 1 1 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.form-group1 {
+  margin-bottom: 20px;
+}
+
+.form-group1 label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.form-group1 input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  background-color: #f0f0f0;
+}
+
+.upload-btn {
+  padding: 10px 16px;
+  background-color: #1b1f3a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.delete-text {
+  font-size: 14px;
+  color: #777;
+  margin: 20px 0;
+}
+
+.delete-text a {
+  color: #5f67ff;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;
+  gap: 20px; /* Reasonable spacing between buttons */
+  margin-top: 30px;
+  width: 100%; /* Fix overflow issue caused by 110% */
+  flex-wrap: wrap;
+}
+
+
+.cancel-btns,
+.save-btns {
+  width: 200px;
+  height: 50px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Optional hover effects */
+.cancel-btns {
+  background-color: #f5f5f5;
+  color: #333;
+  margin-right: 40px;
+}
+
+.cancel-btns:hover {
+  background-color: #e0e0e0;
+}
+
+.save-btns {
+  background-color:  #e61919;
+  
+  color: white;
+}
+
+.save-btns:hover {
+  background-color: #e61919;
+}
+
+.delete-link {
+  color: red;
+  /* text-decoration: underline; */
+  cursor: pointer;
+}
+
+
+
+.popup-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #28a745; /* green */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  z-index: 9999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  animation: fadeInOut 3s ease-in-out;
+  font-weight: bold;
+}
+
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+
+@media (max-width: 768px) {
+  .account-card{
+    margin-left: 0;
+  }
+  .account-form {
+    flex-direction: column;
+  }
+  .form-right {
+    order: -1; /* Show this above the form-left on mobile */
+    width: 100%;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .form-left {
+    order: 1;
+  }
+
+  .avatar-img {
+    margin-bottom: 10px;
+    width: 100px;
+    height: 100px;
+  }
+  .upload-btn {
+    margin: 0 auto;
+  }
+  .form-group1 input{
+    width: 80%;
+  }
+}

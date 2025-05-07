@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "./CustomerList.css";
-
+import Breadcrumb from "./Breadcrumb";
 const initialCustomersData = [
   {
     id: 1,
@@ -76,6 +76,8 @@ const CustomerList = () => {
 
   return (
     <div className="customer-wrapper">
+                  <Breadcrumb current="Customer List" />
+      
       <div className="header-bar">
         <h2 className="table-title">Customer List</h2>
       </div>

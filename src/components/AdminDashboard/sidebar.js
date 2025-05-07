@@ -80,7 +80,7 @@
 import React, { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaList, FaBox, FaTimes, FaBars, FaImage, FaHome } from 'react-icons/fa';
-import { ThemeContext } from '../AdminDashboard/ThemeContext'; // <- import context
+import { ThemeContext } from '../AdminDashboard/ThemeContext';
 import './sidebar.css';
 import { FaUsers } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
@@ -89,7 +89,7 @@ import { IoStorefrontSharp } from "react-icons/io5";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme } = useContext(ThemeContext); // <- use context
+  const { theme } = useContext(ThemeContext);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
   const closeSidebar = () => setIsOpen(false);

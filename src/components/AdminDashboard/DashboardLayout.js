@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./sidebar";
 import "./DashboardLayout.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../AdminDashboard/ThemeContext";
+import axios from "axios"; // ✅ add axios
 
 const themes = ["Lightblue", "Dark", "Blue", "Pink", "Red"];
 
@@ -11,13 +12,26 @@ const DashboardLayout = () => {
     localStorage.getItem("theme") || "Lightblue"
   );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const adminLogo = localStorage.getItem("adminLogo") || "http://udhayamp.pcstech.in/admin/avatar/user.jpg";
-  const adminName = localStorage.getItem("adminName") || "Administrator";
+
+  // ✅ Remove localStorage values
+  const [adminName, setAdminName] = useState("Administrator");
+  const [adminLogo, setAdminLogo] = useState("http://udhayamp.pcstech.in/admin/avatar/user.jpg");
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/profile/1");
+        setAdminName(response.data.fullName);
+        setAdminLogo(`http://localhost:5000/${response.data.avatar.replace(/^uploads\//, '')}`);
+      } catch (error) {
+        console.error("Failed to fetch admin profile:", error);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("isAdmin");
-    localStorage.removeItem("adminLogo");
-    localStorage.removeItem("adminName");
     window.location.href = "/adminlogin";
   };
 
@@ -32,6 +46,8 @@ const DashboardLayout = () => {
     document.body.className = "";
     document.body.classList.add(`theme-${selectedTheme.toLowerCase()}`);
   }, [selectedTheme]);
+
+  const navigate = useNavigate();
 
   return (
     <ThemeContext.Provider value={{ theme: selectedTheme, setTheme: handleThemeChange }}>
@@ -66,8 +82,12 @@ const DashboardLayout = () => {
                   <img src={adminLogo} alt="Admin" className="admin-dropdown-logo" />
                   <p className="admin-name">{adminName}</p>
                   <p className="admin-role">Member since</p>
-                  {/* <button className="setting-btn">Setting</button> */}
-                  <button className="logout-btn" onClick={handleLogout}>Logout</button>
+                  <button className="setting-btn" onClick={() => navigate("/dashboard/accountsettings")}>
+                    Setting
+                  </button>
+                  <button className="logout-btn" onClick={handleLogout}>
+                    Logout
+                  </button>
                 </div>
               )}
             </div>

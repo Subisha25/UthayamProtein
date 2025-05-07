@@ -370,6 +370,7 @@ import { FaUserEdit, FaPlus } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import "../AdminDashboard/categorylist.css";
 import axios from "axios";
+import Breadcrumb from "./Breadcrumb";
 
 function CategoryList() {
   const [data, setData] = useState([]);
@@ -463,6 +464,8 @@ function CategoryList() {
 
   return (
     <div className="admin-container">
+            <Breadcrumb current="category List" />
+      
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h2 className="admin-title">Category List</h2>
         <button onClick={handleAdd} className="admin-add-btn" style={{ fontSize: "20px", padding: "8px", background: "#FFC000", color: "black", border: "none" }}>

@@ -29,10 +29,11 @@ import ProtectedRoute from './components/protectedRoute';
 import CategoryList from './components/AdminDashboard/categorylist';
 import StoreInformation from './components/AdminDashboard/storeinformation';
 import CustomerList from './components/AdminDashboard/CustomerList';
+import AccountSettings from './components/AdminDashboard/AccountSettings';
 
 function App() {
   const location = useLocation();
-  const excludedRoutes = ['/search', '/adminlogin', '/admindashboard', '/orderconfirmation','/dashboard','/dashboard/orderlist', '/dashboard/admindashboard','/dashboard/imagedashboard', "/dashboard/categorylist"];
+  const excludedRoutes = ['/search', '/adminlogin', '/admindashboard', '/orderconfirmation','/dashboard','/dashboard/orderlist', '/dashboard/admindashboard','/dashboard/imagedashboard','/dashboard/accountsettings', "/dashboard/categorylist"];
 
   return (
     <div>
@@ -73,6 +74,9 @@ function App() {
           <Route path="categorylist" element={<CategoryList />} />
           <Route path="storeinformation" element={<StoreInformation />} />
           <Route path="customerlist" element={<CustomerList />} />
+          <Route path="accountsettings" element={<AccountSettings/>} />
+
+
 
 
         </Route>

@@ -1,6 +1,9 @@
 import React from 'react';
 import { FaMoneyBill, FaShoppingCart, FaUsers, FaGift } from 'react-icons/fa';
 import './DashboardContent.css'; // we'll write styles here
+import OrderChart from './OrderChart';
+import YearlyOrderChart from './YearlyOrderChart';
+import Breadcrumb from './Breadcrumb';
 
 const cards = [
   {
@@ -29,6 +32,9 @@ const cards = [
 
 const DashboardContent = () => {
   return (
+    <>
+                <Breadcrumb current="Dashboard" />
+
     <div className="dashboard-grid">
       {cards.map((card, index) => (
         <div className="dashboard-card" style={{ backgroundColor: card.bgColor }} key={index}>
@@ -37,7 +43,12 @@ const DashboardContent = () => {
           <div className="dashboard-card-value">{card.value}</div>
         </div>
       ))}
+
+
     </div>
+    <OrderChart />
+    <YearlyOrderChart />
+    </>
   );
 };
 

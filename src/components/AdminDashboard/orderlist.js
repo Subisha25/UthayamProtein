@@ -1,6 +1,8 @@
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "./orderlist.css";
+import Breadcrumb from "./Breadcrumb";
+
 const ordersData = [
   {
     id: 1,
@@ -47,6 +49,8 @@ const ordersData = [
 const OrderList = () => {
   return (
     <div className="order-wrapper">
+                  <Breadcrumb current="Order List" />
+
       <div className="header-bar">
         <h2 className="table-title">Order List</h2>
       </div>

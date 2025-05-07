@@ -16,6 +16,7 @@ import File from '../assets/material-symbols_add-notes-outline-rounded.png';
 import { useCart } from '../context/cartContext';
 import QRCode from '../products/images/QR_code_for_mobile_English_Wikipedia.svg';
 import { IoIosClose } from "react-icons/io";
+import BankSearch from "./netbank";
 
 const PaymentOption = () => {
   const { cartItems, removeFromCart } = useCart();
@@ -28,6 +29,11 @@ const PaymentOption = () => {
   const selectedAddress = location.state?.selectedAddress;
   const itemsToDisplay = location.state?.itemsToShow || cartItems;
   const [showQR, setShowQR] = useState(false);
+  const [showBankSearch, setShowBankSearch] = useState(false);
+
+  const toggleBankSearch = () => {
+    setShowBankSearch(prev => !prev);
+  };
 
   const handleToggleQR = () => {
     setShowQR(!showQR);
@@ -50,12 +56,43 @@ const PaymentOption = () => {
     setIsOn(!isOn);
   };
 
-  const handleOrder = () => {
-    if (isOn) {
-      navigate("/orderconfirmation")
-      // alert("Order placed successfully!");
+  const handleOrder = async () => {
+    const orderData = {
+      items: itemsToDisplay,
+      address: selectedAddress,
+      itemTotal,
+      deliveryCharge: DELIVERY_CHARGE,
+      gstCharge: GST_CHARGE,
+      totalToPay,
+      paymentMethod: isOn ? "Cash On Delivery" : "Online Payment"
+    };
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(orderData)
+      });
+  
+      if (response.ok) {
+        navigate("/orderconfirmation");
+      } else {
+        alert("Failed to place order");
+      }
+    } catch (error) {
+      console.error("Order error:", error);
     }
   };
+  
+
+  // const handleOrder = () => {
+  //   if (isOn) {
+  //     navigate("/orderconfirmation")
+  //     // alert("Order placed successfully!");
+  //   }
+  // };
 
   const paymentOptions = [
     { id: "paytm", label: "Paytm", image: Paytm },
@@ -128,10 +165,16 @@ const PaymentOption = () => {
                   <p>Save and Pay via Cards</p>
                 </div>
 
-                <div className="pay2method"  onClick={() => navigate("/netbank")}>
+                <div className="pay2method" onClick={toggleBankSearch}>
                   <h3>Net Banking</h3>
                   <p>Select from a list of banks</p>
                 </div>
+
+                {showBankSearch && (
+        <div className="bank-search-wrapper" style={{ marginTop: '30px' }}>
+          <BankSearch />
+        </div>
+      )}
 
               </div>
 
@@ -246,10 +289,16 @@ const PaymentOption = () => {
               <h3>Debit/Credit Card</h3>
               <p>Save and Pay via Cards</p>
             </div>
-            <div className="pay-items1"  onClick={() => navigate("/netbank")}>
+            <div className="pay-items1" onClick={toggleBankSearch}>
               <h3>Net Banking</h3>
               <p>Select from a list of banks</p>
             </div>
+            {showBankSearch && (
+        <div className="bank-search-wrapper" style={{ marginTop: '30px' }}>
+          <BankSearch />
+        </div>
+      )}
+
           </div>
         </div>
 

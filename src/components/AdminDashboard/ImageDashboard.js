@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../AdminDashboard/ImageDashboard.css';
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-
+import Breadcrumb from './Breadcrumb';
 const ImageDashboard = () => {
   const [data, setData] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -86,6 +86,7 @@ const ImageDashboard = () => {
 
   return (
     <div className="admin-container">
+      <Breadcrumb current="Image List" />
       <h2 className="admin-title">Dashboard Table</h2>
       <table className="admin-table">
         <thead>
