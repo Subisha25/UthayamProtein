@@ -1,7 +1,7 @@
 // DebitCardForm.js
 import React, { useState } from 'react';
 import '../payment/debitcard.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../navbar/navbar';
 
 
@@ -12,7 +12,31 @@ const DebitCardForm = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
-
+  const location = useLocation();
+  // const navigate = useNavigate();
+  const orderData = location.state?.orderDetails;
+  
+  const handlePayNow = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/orders/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(orderData)
+      });
+  
+      if (response.ok) {
+        navigate("/orderconfirmation");
+      } else {
+        alert("Payment failed. Try again.");
+      }
+    } catch (error) {
+      console.error("Payment Error:", error);
+      alert("Something went wrong!");
+    }
+  };
+  
 
   const formatCardNumber = (value) => {
     return value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
@@ -25,33 +49,67 @@ const DebitCardForm = () => {
       .substr(0, 5);
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const newErrors = {};
+
+  //   if (cardNumber.replace(/\s/g, '').length !== 16) {
+  //     newErrors.cardNumber = 'Enter a valid 16-digit card number';
+  //   }
+
+  //   if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
+  //     newErrors.expiry = 'Enter expiry in MM/YY format';
+  //   }
+
+  //   if (!/^\d{3}$/.test(cvv)) {
+  //     newErrors.cvv = 'Enter a valid 3-digit CVV';
+  //   }
+
+  //   setErrors(newErrors);
+  //   if (Object.keys(newErrors).length === 0) {
+  //       setShowPopup(true);
+  //       setTimeout(() => {
+  //         setShowPopup(false);
+  //         navigate("/orderconfirmation");
+  //       },3000); // Show popup for 3 seconds
+  //     }
+      
+  // };
+
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
-
+  
     if (cardNumber.replace(/\s/g, '').length !== 16) {
       newErrors.cardNumber = 'Enter a valid 16-digit card number';
     }
-
+  
     if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
       newErrors.expiry = 'Enter expiry in MM/YY format';
     }
-
+  
     if (!/^\d{3}$/.test(cvv)) {
       newErrors.cvv = 'Enter a valid 3-digit CVV';
     }
-
+  
     setErrors(newErrors);
+  
     if (Object.keys(newErrors).length === 0) {
-        setShowPopup(true);
-        setTimeout(() => {
-          setShowPopup(false);
-          navigate("/orderconfirmation");
-        },3000); // Show popup for 3 seconds
-      }
-      
+      setShowPopup(true);
+  
+      // ✅ send data to backend
+      await handlePayNow();
+  
+      // ✅ show popup for 3 seconds, then navigate
+      setTimeout(() => {
+        setShowPopup(false);
+        navigate("/orderconfirmation");
+      }, 3000);
+    }
   };
-
+  
   return (
     
     <>

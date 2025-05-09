@@ -1,54 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "./CustomerList.css";
 import Breadcrumb from "./Breadcrumb";
-const initialCustomersData = [
-  {
-    id: 1,
-    name: "Ravi Kumar",
-    phone: "9876543210",
-    address1: "No.10, Anna Nagar,Near City Center,Chennai",
-    address2: "",
-    address3: "",
-    state: "Tamil Nadu",
-  },
-  {
-    id: 2,
-    name: "Meena Raj",
-    phone: "8765432190",
-    address1: "15/2, KK Nagar,Opposite Bus Stand,Madurai",
-    address2: "",
-    address3: "",
-    state: "Tamil Nadu",
-  },
-  {
-    id: 3,
-    name: "Suresh Babu",
-    phone: "7654321980",
-    address1: "23, Gandhipuram,Near Railway Station,Coimbatore",
-    address2: "",
-    address3: "",
-    state: "Tamil Nadu",
-  },
-  {
-    id: 4,
-    name: "Divya",
-    phone: "9988776655",
-    address1: "7, Salem Town,Near New Bus Stand,Salem",
-    address2: "",
-    address3: "",
-    state: "Tamil Nadu",
-  },
-];
 
 const CustomerList = () => {
-  const [customers, setCustomers] = useState(initialCustomersData);
+  const [customers, setCustomers] = useState([]);
   const [editingCustomer, setEditingCustomer] = useState(null);
 
-  const handleDelete = (id) => {
+  // Fetch customers on component mount
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/delivery-address/");
+        const data = await response.json();
+        setCustomers(data); // Assuming the API returns an array of customer objects
+      } catch (error) {
+        console.error("Error fetching customers:", error);
+      }
+    };
+    fetchCustomers();
+  }, []);
+
+  // Handle DELETE request
+  const handleDelete = async (id) => {
     const confirmed = window.confirm("Are you sure you want to delete?");
     if (confirmed) {
-      setCustomers(customers.filter((customer) => customer.id !== id));
+      try {
+        const response = await fetch(`http://localhost:5000/api/delivery-address/${id}`, {
+          method: "DELETE",
+        });
+
+        if (response.ok) {
+          // Remove the deleted customer from state
+          setCustomers(customers.filter((customer) => customer.id !== id));
+        } else {
+          alert("Error deleting customer");
+        }
+      } catch (error) {
+        console.error("Error deleting customer:", error);
+      }
     }
   };
 
@@ -61,13 +51,32 @@ const CustomerList = () => {
     setEditingCustomer((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleUpdate = () => {
-    setCustomers((prevCustomers) =>
-      prevCustomers.map((cust) =>
-        cust.id === editingCustomer.id ? editingCustomer : cust
-      )
-    );
-    setEditingCustomer(null);
+  const handleUpdate = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/delivery-address/${editingCustomer.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(editingCustomer),
+        }
+      );
+
+      if (response.ok) {
+        setCustomers((prevCustomers) =>
+          prevCustomers.map((cust) =>
+            cust.id === editingCustomer.id ? editingCustomer : cust
+          )
+        );
+        setEditingCustomer(null);
+      } else {
+        alert("Error updating customer");
+      }
+    } catch (error) {
+      console.error("Error updating customer:", error);
+    }
   };
 
   const handleClose = () => {
@@ -76,8 +85,8 @@ const CustomerList = () => {
 
   return (
     <div className="customer-wrapper">
-                  <Breadcrumb current="Customer List" />
-      
+      <Breadcrumb current="Customer List" />
+
       <div className="header-bar">
         <h2 className="table-title">Customer List</h2>
       </div>
@@ -89,8 +98,8 @@ const CustomerList = () => {
             <th>Name</th>
             <th>Phone</th>
             <th>Address 1</th>
-            <th>Address 2</th>
-            <th>Address 3</th>
+            {/* <th>Address 2</th> */}
+            {/* <th>Address 3</th> */}
             <th>State</th>
             <th>Action</th>
           </tr>
@@ -101,9 +110,9 @@ const CustomerList = () => {
               <td>{index + 1}</td>
               <td>{customer.name}</td>
               <td>{customer.phone}</td>
-              <td>{customer.address1}</td>
-              <td>{customer.address2}</td>
-              <td>{customer.address3}</td>
+              <td>{customer.house} {customer.area}, {customer.city}</td>
+              {/* <td>{customer.address2}</td> */}
+              {/* <td>{customer.address3}</td> */}
               <td>{customer.state}</td>
               <td className="action-icons">
                 <FaEdit

@@ -33,7 +33,8 @@ import AccountSettings from './components/AdminDashboard/AccountSettings';
 
 function App() {
   const location = useLocation();
-  const excludedRoutes = ['/search', '/adminlogin', '/admindashboard', '/orderconfirmation','/dashboard','/dashboard/orderlist', '/dashboard/admindashboard','/dashboard/imagedashboard','/dashboard/accountsettings', "/dashboard/categorylist"];
+  const excludedRoutes = ['/search', '/adminlogin', '/admindashboard', '/orderconfirmation','/dashboard',
+    '/dashboard/orderlist', '/dashboard/admindashboard','/dashboard/imagedashboard','/dashboard/accountsettings', "/dashboard/categorylist", "/dashboard/customerlist", "/dashboard/storeinformation"];
 
   return (
     <div>

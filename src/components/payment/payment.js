@@ -175,8 +175,46 @@ const PaymentOption = () => {
                   <h3>Wallet </h3>
                   <p>PhonePe, Amazon Pay and more</p>
                 </div>
+                <div
+  className="pay2method"
+  onClick={() => {
+    if (!selectedAddress) {
+      alert("Please select a delivery address first.");
+      return;
+    }
 
-                <div className="pay2method"  onClick={() => navigate("/debitcard")}>
+    navigate("/debitcard", {
+      state: {
+        selectedAddress,
+        itemsToShow: itemsToDisplay,
+        orderDetails: {
+          products: itemsToDisplay.map(item => ({
+            name: item.title,
+            price: item.originalRate,
+            quantity: item.quantity || 1,
+          })),
+          address: {
+            name: selectedAddress.name,
+            phone: selectedAddress.phone,
+            street: `${selectedAddress.house}, ${selectedAddress.area}`,
+            city: selectedAddress.city,
+            state: selectedAddress.state,
+            pincode: selectedAddress.pincode,
+          },
+          itemTotal,
+          deliveryCharge: DELIVERY_CHARGE,
+          gstCharge: GST_CHARGE,
+          totalAmount: totalToPay,
+          paymentMethod: "Online Payment",
+        }
+      }
+    });
+  }}
+>
+
+
+
+                {/* <div className="pay2method"  onClick={() => navigate("/debitcard")}> */}
                   <h3>Debit/Credit Card</h3>
                   <p>Save and Pay via Cards</p>
                 </div>
