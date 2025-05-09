@@ -56,19 +56,34 @@ const PaymentOption = () => {
     setIsOn(!isOn);
   };
 
+
+
   const handleOrder = async () => {
+    const formattedItems = itemsToDisplay.map(item => ({
+      name: item.title,
+      price: item.originalRate,
+      quantity: item.quantity || 1,
+    }));
+  
     const orderData = {
-      items: itemsToDisplay,
-      address: selectedAddress,
+      products: formattedItems,
+      address: {
+        name: selectedAddress.name,
+        phone: selectedAddress.phone,
+        street: `${selectedAddress.house}, ${selectedAddress.area}`,  
+        city: selectedAddress.city,
+        state: selectedAddress.state,
+        pincode: selectedAddress.pincode,
+      },
       itemTotal,
       deliveryCharge: DELIVERY_CHARGE,
       gstCharge: GST_CHARGE,
-      totalToPay,
+      totalAmount: totalToPay, // ✅ match backend key
       paymentMethod: isOn ? "Cash On Delivery" : "Online Payment"
     };
   
     try {
-      const response = await fetch("http://localhost:5000/api/orders", {
+      const response = await fetch("http://localhost:5000/orders/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -83,6 +98,7 @@ const PaymentOption = () => {
       }
     } catch (error) {
       console.error("Order error:", error);
+      alert("Something went wrong while placing the order.");
     }
   };
   

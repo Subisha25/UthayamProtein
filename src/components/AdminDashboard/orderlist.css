@@ -115,6 +115,85 @@
     text-decoration: none;
   }
   
+.order-icons{
+width: 30px;
+height: 30px;
+
+}
+
+.order-icon{
+  font-size: 25px;
+  color: white;
+}
+
+/* Confirmation Popup Overlay */
+.orderlist-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.orderlist-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.orderlist-popup-close:hover {
+  color: #e74c3c;
+}
+
+/* Add this if it's not already present for popup styling */
+.orderlist-popup {
+  position: relative; /* Important for absolute close icon */
+  background-color: #fff;
+  padding: 25px 30px 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Buttons Container */
+.orderlist-popup-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Buttons */
+.orderlist-btn {
+  padding: 8px 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.orderlist-confirm {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.orderlist-cancel {
+  background-color: #3498db;
+  color: white;
+}
+
+
   @media (max-width: 767px) {
     .order-wrapper{
       margin-left: 0;
