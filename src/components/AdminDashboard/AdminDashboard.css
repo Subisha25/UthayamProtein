@@ -57,7 +57,7 @@
     padding: 20px;
   }
     
-  .admin-form input {
+  .admin-form input, select {
     width: 93%;
     padding: 12px 15px;
     font-size: 16px;

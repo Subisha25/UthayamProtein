@@ -32,10 +32,14 @@ const Chicken = () => {
         const response = await axios.get("http://localhost:5000/api/products/");
         console.log("Products Data:", response.data);
         
-        // Filter products that have "chicken" in the title
-        const chickenProducts = response.data.filter(product =>
-          product.title.toLowerCase().includes("chicken")
+
+        const chickenProducts = response.data.filter(
+          (product) => product.category.toLowerCase() === "chicken"
         );
+        // // Filter products that have "chicken" in the title
+        // const chickenProducts = response.data.filter(product =>
+        //   product.title.toLowerCase().includes("chicken")
+        // );
 
         setProducts(chickenProducts);
         setFilteredProducts(chickenProducts);

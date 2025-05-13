@@ -34,8 +34,8 @@ const Kadai = () => {
         const keywords = ["kadai", "kaada", "kaadai"];
 
         // Filter products that contain any of the keywords in the title
-        const kadaiProducts = response.data.filter((product) =>
-          keywords.some((keyword) => product.title.toLowerCase().includes(keyword))
+        const kadaiProducts = response.data.filter(
+          (product) => product.category?.toLowerCase() === "kadai"
         );
 
         setProducts(kadaiProducts);

@@ -34,8 +34,8 @@ const Egg = () => {
         console.log("Products Data:", response.data);
 
         // Filter only products that contain "egg" in the title (case-insensitive)
-        const eggProducts = response.data.filter((product) =>
-          product.title.toLowerCase().includes("egg")
+        const eggProducts = response.data.filter(product =>
+          product.category.toLowerCase() === "egg"
         );
 
         setProducts(eggProducts);

@@ -9,6 +9,9 @@ import Breadcrumb from "./Breadcrumb";
 
 const AdminProductDashboard = () => {
 
+  const [categories, setCategories] = useState([]);
+
+
   const [products, setProducts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,11 +20,24 @@ const AdminProductDashboard = () => {
     oldRate: "",
     stock: "",
     image: null,
+    category: "", 
   });
   const [preview, setPreview] = useState(null);
   const [editId, setEditId] = useState(null);
   const [confirmEditPopup, setConfirmEditPopup] = useState({ visible: false, product: null });
   const [confirmDeletePopup, setConfirmDeletePopup] = useState({ visible: false, productId: null });
+
+  const fetchCategories = async () => {
+    const res = await fetch("http://localhost:5000/api/categories");
+    const data = await res.json();
+    setCategories(data);
+  };
+  
+  useEffect(() => {
+    fetchProducts();
+    fetchCategories(); // ← fetch categories on mount
+  }, []);
+  
 
   const fetchProducts = async () => {
     const res = await fetch("http://localhost:5000/api/products");
@@ -56,6 +72,8 @@ const AdminProductDashboard = () => {
     form.append("originalRate", formData.originalRate);
     form.append("oldRate", formData.oldRate);
     form.append("stock", formData.stock);
+    form.append("category", formData.category);
+
     if (formData.image) form.append("image", formData.image);
 
     const res = await fetch(url, {
@@ -79,6 +97,7 @@ const AdminProductDashboard = () => {
       oldRate: product.oldRate,
       stock: product.stock,
       image: null,
+      category: product.category || "", // ← added this line
     });
     setPreview(`http://localhost:5000/uploads/${product.image}`);
     setEditId(product.id);
@@ -115,6 +134,21 @@ const AdminProductDashboard = () => {
         </Link>
       </div>
           <input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleInputChange} required />
+          <select
+  name="category"
+  className="select-input"
+  value={formData.category}
+  onChange={handleInputChange}
+  required
+>
+  <option value="">Select Category</option>
+  {categories.map((item) => (
+    <option key={item.id} value={item.category_name}>
+      {item.category_name}
+    </option>
+  ))}
+</select>
+
           <input type="number" name="originalRate" placeholder="Original Rate" value={formData.originalRate} onChange={handleInputChange} required />
           <input type="number" name="oldRate" placeholder="Old Rate" value={formData.oldRate} onChange={handleInputChange} />
           <input type="number" name="stock" placeholder="Stock" value={formData.stock} onChange={handleInputChange} required />
@@ -132,6 +166,7 @@ const AdminProductDashboard = () => {
     <thead>
       <tr>
         <th>Image</th>
+        <th>Category</th>
         <th>Title</th>
         <th>Original Rate</th>
         <th>Old Rate</th>
@@ -143,6 +178,8 @@ const AdminProductDashboard = () => {
       {products.map((p) => (
         <tr key={p.id}>
           <td><img src={`http://localhost:5000/uploads/${p.image}`} className="admin-table-img" /></td>
+          <td>{p.category}</td>
+
           <td>{p.title}</td>
           <td>{p.originalRate}</td>
           <td>{p.oldRate}</td>
